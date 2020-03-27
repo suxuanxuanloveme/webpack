@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../static/css/layui-2.5.5/dist/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../static/css/index.css" />
+		<style type="text/css">
+			.layui-btn-container {
+				text-align: center;
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+				background: white;
+				padding: 13px 0 5px 0;
+				border-top: 1px solid #e6e6e6;
+				z-index: 1000;
+				left: 0;
+			}
+			
+			.layui-table-page {
+				text-align: center;
+			}
+			
+			body {
+				padding: 5px;
+			}
+			
+			.layui-table-tool {
+				display: none;
+			}
+			
+			.layui-table-view {
+				margin-bottom: 70px;
+			}
+		</style>
+	</head>
+
+	<body>
+	    <input type="hidden" name="" class="val" value="1" />
+		<input type="hidden" name="" class="value" value="" />
+		<form class="layui-form layui-form-pane" id="formTest" lay-filter="formTest">
+			<input type="hidden" name="id" lay-filter="id" class="idea">
+			<div class="layui-form-item">
+				<label class="layui-form-label">叶片名称</label>
+				<div class="layui-input-inline">
+					<input type="text" placeholder="请输入" name="bladeName" autocomplete="off" class="layui-input">
+				</div>
+				<label class="layui-form-label">截面数量</label>
+				<div class="layui-input-inline">
+					<select name="CrossSection" lay-filter="aihao">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+					</select>
+				</div>
+				<div class="layui-form-mid layui-word-aux">
+					%叶高
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">发动机型号</label>
+				<div class="layui-input-inline">
+					<select name="engineType" id="engineType" lay-filter="engineType">
+						<!--<option value="1">型号一</option>-->
+						<!--<option value="2">型号二</option>-->
+						<!--<option value="3">型号三</option>-->
+						<!--<option value="4">型号四</option>-->
+						<!--<option value="5">型号五</option>-->
+						<!--<option value="6">型号六</option>-->
+					</select>
+				</div>
+				<label class="layui-form-label">设计马赫</label>
+				<div class="layui-input-inline">
+					<input type="text" name="DesignMach" placeholder="请输入" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+				</div>
+				<div class="layui-form-mid layui-word-aux">
+					MA
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">叶片位置</label>
+				<div class="layui-input-inline">
+					<select name="LeafBladePosition" id="LeafBladePosition" lay-filter="aihao">
+					</select>
+				</div>
+
+				<label class="layui-form-label">叶片类型</label>
+				<div class="layui-input-inline">
+					<select name="BladeType" id="BladeType" lay-filter="aihao">
+						<!--<option value="38">静子</option>-->
+						<!--<option value="39">转子</option>-->
+					</select>
+				</div>
+
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">叶型型面坐标</label>
+				<div class="layui-input-inline">
+					<input type="text" name="BladeCoordinates" placeholder="请输入" autocomplete="off" class="layui-input"  onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
+				</div>
+			</div>
+			<table class="layui-table" id="tables" lay-filter="tables">
+			</table>
+		</form>
+		<div class="layui-btn-container block">
+			<button type="button" class="layui-btn getCheckLength">保存</button>
+			<button type="button" class="layui-btn amend">修改</button>
+			<button type="button" class="layui-btn new">新增</button>
+			<button type="button" class="layui-btn delete" style="background-color: #FD482C">删除选中行</button>
+		</div>
+		<script type="text/html" id="toolbarDemo">
+			<button type="button" class="layui-btn getCheckData" lay-event="getCheckData">修改</button>
+		</script>
+	</body>
+	<script src="../static/css/layui-2.5.5/dist/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var pathName = window.document.location.pathname;
+		var index = pathName.lastIndexOf("/");
+		var projectName = pathName.slice(0, index - 5 )
+		var path = "http://" + window.location.host + projectName
+		layui.use(['element', 'form', 'table', 'layer'], function() {
+			var $ = layui.jquery,
+				form = layui.form,
+				table = layui.table,
+				element = layui.element;
+			$.get(path + 'findBladeButeClass1', function(res) {
+				var html
+				for(var name in res.data) {
+					html += '<option   value=' + res.data[name].id + '>' + res.data[name].title + '</option>'
+				}
+				$('#engineType').html(html)
+				layui.form.render("select");
+			})
+			//叶片位置
+			$.get(path + 'findBladeButeClass2', function(res) {
+				// console.log(res)
+				var html
+				for(var name in res.data) {
+					html += '<option   value=' + res.data[name].id + '>' + res.data[name].title + '</option>'
+				}
+				$('#LeafBladePosition').html(html)
+				layui.form.render("select");
+			})
+			//叶片类型
+			$.get(path + 'findBladeButeClass3', function(res) {
+				// console.log(res)
+				var html
+				for(var name in res.data) {
+					html += '<option   value=' + res.data[name].id + '>' + res.data[name].title + '</option>'
+				}
+				$('#BladeType').html(html)
+				layui.form.render("select");
+			})
+			function option() {
+				table.render({
+					elem: '#tables',
+					url: path + 'findAllBladeattribute',
+					toolbar: '#toolbarDemo',
+					title: '用户数据表',
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+						}, {
+							field: 'bladename',
+							title: '叶片名称',
+							fixed: 'left',
+							unresize: true,
+							sort: true,
+						}, {
+							field: 'section',
+							title: '截面数量',
+						}, {
+							field: 'enginetype_name',
+							title: '发动机型号',
+
+						}, {
+							field: 'location_name',
+							title: '叶片位置',
+						}, {
+							field: 'blade_name',
+							title: '叶片类型',
+
+						}, {
+							field: 'mach',
+							title: '设计马赫'
+						}, {
+							field: 'coordinate',
+							title: '叶型型面坐标'
+						}]
+					],
+					page: true,
+					done: function(res, curr, count) {
+						var html = ''
+						for(var i = 0; i < res.data.length; i++) {
+							html += '<option  value=' + res.data[i].id + '>' + res.data[i].bladename + '</option>'
+						}
+						$('#bladeName').html(html)
+						layui.form.render("select");
+					}
+				});
+			}
+			option();
+
+			//新增表单
+			layui.$('.new').on('click', function() {
+				$("#formTest")[0].reset();
+				layui.form.render();
+			})
+
+			//表单取值   保存的数据
+			layui.$('.getCheckLength').on('click', function() {
+				var str = $(this).parent().prev().attr("lay-filter")
+				var data = form.val(str);
+				var val = $(".val").val();
+				if(val == 1) {
+					$.get(path + 'insertBlade', {
+						bladename: data.bladeName,
+						enginetype_id: data.engineType,
+						location_id: data.LeafBladePosition,
+						blade_id: data.BladeType,
+						section: data.CrossSection,
+						mach: data.DesignMach,
+						coordinate: data.BladeCoordinates
+					}, function(res) {
+						switch(res.code) {
+							case 0:
+                                layer.msg(res.data)
+								option();
+								break;
+							case 10002:
+								layer.msg(res.data)
+								break;
+							case 10000:
+								layer.msg(res.data)
+								break;
+							case 10001:
+								layer.msg(res.data)
+								break;
+							default:
+								break;
+						}
+						console.log(res)
+					})
+				}
+				if(val == 2) {
+					$.get(path + 'updateBlade', {
+						bladename: data.bladeName,
+						enginetype_id: data.engineType,
+						location_id: data.LeafBladePosition,
+						blade_id: data.BladeType,
+						section: data.CrossSection,
+						mach: data.DesignMach,
+						coordinate: data.BladeCoordinates,
+						id: data.id,
+						addtime: new Date()
+					}, function(res) {
+						switch(res.code) {
+							case 0:
+                                layer.msg(res.data)
+								option();
+								break;
+							case 10002:
+								layer.msg(res.data)
+								break;
+							case 10000:
+								layer.msg(res.data)
+								break;
+							case 10001:
+								layer.msg(res.data)
+								break;
+							default:
+								break;
+						}
+						console.log(res)
+					})
+
+				}
+
+			});
+
+			table.on('toolbar(tables)', function(obj) {
+				var checkStatus = table.checkStatus(obj.config.id);
+				var data = checkStatus.data;
+				var value = $(".value").val()
+				if(value == 1) {
+					if(JSON.stringify(data) == '[]') {
+						layer.alert("请选择修改项");
+					} else {
+						if(data.length > 1) {
+							layer.alert("修改只能单选进行")
+						} else {
+							form.val('formTest', {
+								"bladeName": data[0].bladename,
+								"DesignMach": data[0].mach,
+								"BladeCoordinates": data[0].coordinate,
+								"LeafBladePosition": data[0].location_id,
+								"BladeType": data[0].blade_id,
+								"CrossSection": data[0].section,
+								"id": data[0].id,
+								"engineType": data[0].enginetype_id
+							});
+							form.render('select')
+						}
+					}
+					$(".val").val(2)
+				} else {
+					if(JSON.stringify(data) == '[]') {
+						layer.alert("请选择删除项");
+					} else {
+						if(data.length > 1) {
+							var arr = []
+
+							for(var i = 0; i < data.length; i++) {
+								arr.push(data[i].id)
+							}
+							$.get(path + 'deleteBladeAll', {
+								"id": "" + arr + ""
+							}, function(res) {
+								console.log(res)
+								layer.msg("删除多个成功")
+								option();
+							})
+						} else {
+							$.get(path + 'deleteBlade', {
+								id: data[0].id,
+							}, function(res) {
+								console.log(res)
+								layer.msg("删除一个成功")
+								option();
+							})
+						}
+					}
+				}
+			});
+			$(".amend,.delete").click(function() {
+				if($(this).is(".amend")) {$(".value").val(1)}
+				if($(this).is(".delete")){$(".value").val(2)}
+				$(".getCheckData").trigger("click");
+			})
+		})
+	</script>
+
+</html>

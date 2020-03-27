@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./static/css/layui-2.5.5/dist/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="./static/font/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="./static/css/index.css" />
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			li {
+				list-style: none;
+				float: left;
+				width: auto;
+				height: 40px;
+				background: #272727;
+				margin: 0 2px 0 0px;
+				color: white;
+				display: inline-block;
+				zoom: 1;
+				vertical-align: middle;
+				font-size: 14px;
+				-webkit-transition: all .2s;
+				position: relative;
+				line-height: 40px;
+				min-width: 65px;
+				padding: 0 15px;
+				text-align: center;
+				cursor: pointer;
+			}
+			
+			iframe {
+				box-sizing: border-box;
+				height: calc(100vh - 65px);
+				padding: 5px;
+				margin: 0;
+			}
+			
+			body {
+				border: 10px solid #272727;
+			}
+			
+			ul {
+				background: #272727;
+				width: 100%;
+				height: 40px;
+			}
+			
+			.this {
+				background: white;
+				color: black;
+			}
+			
+			/*3月7日加的内容*/
+			.usr {
+				float: right;
+				color: white;
+				line-height: 40px;
+				height: 40px;
+				font-size: 14px;
+				width: 120px;
+			}
+			.usr .nuer_name{
+				line-height:38px;display: block; float: left;  height:38px;margin-right: 6px;
+			}
+			.usr .usrinfo{
+				margin-right:1px; font-size: 25px; float: left;
+			}
+			.usr .loginout {
+				width:40px;
+				height:20px;
+				line-height:20px;
+				background-color: #d60000;
+				border-radius: 4px;
+				display: block;
+				text-align: center;
+				float: left;
+				font-size: 12px;
+				margin-top:9px;
+				color: #fff;
+			}
+			.loginout:hover {
+				background-color: #FD482C;
+				color: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ul>
+			<li class="this" data-link="views/frame_a.html"><i class="iconfont icon-shuxing-shouqi"></i>叶片基本属性</li>
+			<li data-link="views/frame_b.html"><i class="iconfont icon-sheji"></i>叶型设计参数</li>
+			<li data-link="views/frame_c.html"><i class="iconfont icon-thin-_pencil_rul"></i>叶型测量参数</li>
+			<li data-link="views/frame_d.html"><i class="iconfont icon-jihegeometric12"></i>叶型几何误差</li>
+			<li data-link="views/frame_e.html"><i class="iconfont icon-tongji1 "></i>误差统计分析</li>
+			<li data-link="views/frame_f.html"><i class="iconfont icon-shezhixitongshezhigongnengshezhishuxing-xian"></i>设置</li>
+			<li data-link="views/frame_g.html"><i class="iconfont icon-bangzhu"></i>帮助</li>
+			<div class="usr">
+				<i class="layui-icon layui-icon-username usrinfo"></i><span class="nuer_name">admin</span>
+			    <a href="#" class="loginout">退出</a>
+			</div>
+		</ul>
+		<iframe src="views/frame_a.html" width="100%" frameborder="0"></iframe>
+	</body>
+	<script src="./static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./static/js/sesson.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+
+        //获取项目名称
+        var pathName = window.document.location.pathname;
+        var index = pathName.lastIndexOf("/");
+        var projectName = pathName.slice(0, index + 1)
+        var path = "http://" + window.location.host + projectName
+        if (userEntity == null) {
+            location.href = path + "login.html"
+        } else {
+        	$(".nuer_name").html(userEntity.username);
+            $(".loginout").click(function(){
+                sessionStorage.removeItem("user")
+                var userJsonStr = sessionStorage.getItem('user');
+                userEntity = JSON.parse(userJsonStr);
+                console.log(userEntity)
+				window.location.href="./login.html"
+            })
+            $("li").each(function () {
+                $(this).click(function () {
+                    $("iframe").attr('src', $(this).attr("data-link"))
+                    $(this).siblings().removeClass("this")
+                    $(this).addClass("this")
+                })
+            })
+            //轮询验证session
+            setInterval(function() {
+                $.get(path + 'userstoken', {
+                    token: userEntity.name,
+                }, function(res) {
+                    console.log(res)
+                    switch(res.code) {
+                        case 1:
+                            location.href = "./login.html"
+                            break;
+                        case 0:
+                            console.log(res.message)
+                            break;
+                        default:
+                            break;
+                    }
+                })
+            }, 60000)
+        }
+	</script>
+
+</html>

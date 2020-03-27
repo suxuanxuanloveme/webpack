@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../static/css/layui-2.5.5/dist/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../static/css/index.css" />
+		<style type="text/css">
+			.layui-btn-container {
+				text-align: center;
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+				background: white;
+				padding: 13px 0 5px 0;
+				border-top: 1px solid #e6e6e6;
+				z-index: 1000;
+				left: 0;
+			}
+			
+			body {
+				padding: 5px;
+			}
+			
+			.layui-table-tool {
+				display: none;
+			}
+			
+			.layui-table-view {
+				margin-bottom: 70px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<input type="hidden" name="" class="val" value="1" />
+		<input type="hidden" name="" class="value" value="" />
+		<form class="layui-form layui-form-pane min-width" id="formText" lay-filter="formText">
+			<input type="hidden" name="listid">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">选择叶片名称</label>
+					<div class="layui-input-inline">
+						<select name="bladeName" id="bladeName" lay-filter="bladeName">
+							<option value="1">1</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">截面位置</label>
+					<div class="layui-input-inline">
+						<select name="CrossSection" id="CrossSection" lay-filter="CrossSection">
+
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">后缘圆心&nbsp;OX</label>
+					<div class="layui-input-inline">
+						<input type="text" name="lastCenterX" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">OY</label>
+					<div class="layui-input-inline">
+						<input type="text" name="lastCenterY" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">前缘角：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="FrontRoundCut" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">后缘角：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="AfterRoundCorner" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<!--<div class="layui-inline">-->
+					<!--<label class="layui-form-label">后缘半径R</label>-->
+					<!--<div class="layui-input-inline">-->
+						<!--<input type="text" name="lastCenterB" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">-->
+					<!--</div>-->
+					<!--<span class="span-block">mm</span>-->
+				<!--</div>-->
+				<div class="layui-inline">
+					<label class="layui-form-label">短轴半径</label>
+					<div class="layui-input-inline">
+						<input type="text" name="MinorAxisRadius" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+					<span class="span-block">mm</span>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">前缘圆心&nbsp;OX</label>
+					<div class="layui-input-inline">
+						<input type="text" name="frontCenterX" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">OY</label>
+					<div class="layui-input-inline">
+						<input type="text" name="frontCenterY" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">长轴半径</label>
+					<div class="layui-input-inline">
+						<input type="text" name="LongShaftRadius" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+					<span class="span-block">mm</span>
+				</div>
+
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">叶型弯角</label>
+					<div class="layui-input-inline">
+						<input type="text" name="BladeAngle" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">最大挠度</label>
+					<div class="layui-input-inline">
+						<input type="text" name="maximumDeflection" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">最大挠度位置</label>
+					<div class="layui-input-inline">
+						<input type="text" name="maximumDeflectionPosition" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">弦长</label>
+					<div class="layui-input-inline">
+						<input type="text" name="chordLength" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+					<span class="span-block">mm</span>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">最大厚度</label>
+					<div class="layui-input-inline">
+						<input type="text" name="maximumGauge" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">最大厚度位置</label>
+					<div class="layui-input-inline">
+						<input type="text" name="maximumGaugePosition" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+			</div>
+			<div class="scroll">
+				<table class="layui-table" id="table2" lay-filter="table2">
+				</table>
+			</div>
+		</form>
+
+		<div class="layui-btn-container block">
+			<button type="button" class="layui-btn getCheckLength">保存</button>
+			<button type="button" class="layui-btn uploading">型值点读入</button>
+			<button type="button" class="layui-btn amend1">修改</button>
+			<button type="button" class="layui-btn new">新增</button>
+			<button type="button" class="layui-btn delete1" style="background-color: #FD482C">删除选中行</button>
+		</div>
+		<script type="text/html" id="toolbarDeme">
+			<button type="button" class="layui-btn getCheckDate" lay-event="getCheckDate">修改</button>
+		</script>
+	</body>
+	<script src="../static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../static/css/layui-2.5.5/dist/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//获取项目名称
+        var pathName = window.document.location.pathname;
+        var index = pathName.lastIndexOf("/");
+        var projectName = pathName.slice(0,  index - 5)
+        var path = "http://" + window.location.host + projectName
+		$(".scroll").width($("body").width() - 5)
+		layui.use(['element', 'form', 'table', 'layer'], function() {
+			var $ = layui.jquery,
+				form = layui.form,
+				table = layui.table,
+				element = layui.element;
+            $('select[name="name"]').next().find('.layui-select-title input').click();
+            $('select[name="name"]').next().find('.layui-anim').children('dd').eq(0).click();
+
+            $.get(path + 'findBladeNameAndSection', function(res) {
+                console.log(res)
+                var html = ''
+                for(var i = 0; i < res.data.length; i++) {
+                    html += '<option  value=' + res.data[i].id + '>' + res.data[i].bladename + '</option>'
+                }
+                $('#bladeName').html(html)
+                layui.form.render("select");
+            })
+
+			form.on('select(bladeName)', function(data) {
+				$.get(path + 'findSectionById', {
+					id: data.value
+				}, function(res) {
+					console.log(res)
+					let html
+					for(var i = 1; i <= res.data.section; i++) {
+						html += '<option value=' + i + '>' + i + '</option>'
+					}
+					$('#CrossSection').html(html)
+					layui.form.render("select");
+				})
+			})
+             //新增表单
+            layui.$('.new').on('click', function () {
+                var str = $(this).parent().prev().attr("lay-filter")
+                var data = form.val(str);
+                switch (str) {
+                    case "formTest":
+                        $("#formTest")[0].reset();
+                        layui.form.render();
+                        $(".val").val(1);
+                        break;
+                    case "formText":
+                        $("#bladeName").removeAttr("disabled")
+                        $("#CrossSection").removeAttr("disabled")
+                        $("#formText")[0].reset();
+                        layui.form.render();
+                        $(".val").val(1);
+                        break;
+                    case "formTexted":
+                        $("#formTexted")[0].reset();
+                        layui.form.render();
+                        $(".val").val(1);
+                        break;
+                    default:
+                        break;
+                }
+            })
+			function option2() {
+				table.render({
+					elem: '#table2',
+					url: path + 'findDesignParameter',
+					toolbar: '#toolbarDeme',
+					title: '用户数据表',
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left',
+						}, {
+							// field: 'bladeattribute_id',
+							title: '叶片名称',
+							width: 100,
+							templet: function(d) {
+								return d.bladename11
+							}
+						}, {
+							field: 'section',
+							title: '截面位置',
+							width: 100
+						}, {
+							field: 'chordlength',
+							title: '弦长',
+							width: 100
+						}, {
+							field: 'frontcenterX',
+							title: '前缘圆心OX',
+							width: 100
+						}, {
+							field: 'frontcenterY',
+							title: '前缘圆心OY',
+							width: 100
+						}, {
+							field: 'rearcenterX',
+							title: '后缘圆心OX',
+							width: 100
+						}, {
+							field: 'rearcenterY',
+							title: '后缘圆心OY',
+							width: 100
+						}, {
+							field: 'frontangle',
+							title: '前缘角',
+							width: 100
+						}, {
+							field: 'rearangle',
+							title: '后缘角',
+							width: 100
+						}, {
+							field: 'deflection',
+							title: '最大挠度',
+							width: 100
+						}, {
+							field: 'deflectionposition',
+							title: '最大挠度位置',
+							width: 100
+						}, {
+							field: 'thickness',
+							title: '最大厚度',
+							width: 100
+						}, {
+							field: 'thicknessposition',
+							title: '最大厚度位置',
+							width: 100
+						}, {
+							field: 'biegewinkel',
+							title: '叶型弯角',
+							width: 100
+						}, {
+							field: 'majorradius',
+							title: '长轴半径',
+							width: 100
+						}, {
+							field: 'shortradius',
+							title: '短轴半径',
+							width: 100
+						}]
+					],
+					page: true
+				});
+			}
+			option2();
+
+			//表单取值   保存的数据
+			layui.$('.getCheckLength').on('click', function() {
+				var str = $(this).parent().prev().attr("lay-filter")
+				var data = form.val(str);
+				var val = $(".val").val();
+				if(val == 1) {
+					$.get(path + 'insertBladeParameter', {
+						bladeattribute_id: data.bladeName, //叶片名称
+						section: data.CrossSection, //截面位置
+						rearcenterX: data.lastCenterX, //后缘圆心 OX
+						rearcenterY: data.lastCenterY, //后缘圆心 OY
+						frontangle: data.FrontRoundCut, //前缘角：
+						rearangle: data.AfterRoundCorner, //后缘角：
+						frontcenterX: data.frontCenterX, //前缘圆心 OX
+						frontcenterY: data.frontCenterY, //OY
+						majorradius: data.LongShaftRadius, //长轴半径
+						shortradius: data.MinorAxisRadius, //短轴半径
+						biegewinkel: data.BladeAngle, // 叶型弯角
+						deflection: data.maximumDeflection, //最大挠度
+						deflectionposition: data.maximumDeflectionPosition, //最大挠度位置
+						chordlength: data.chordLength, //弦长
+						thickness: data.maximumGauge, //最大厚度
+						thicknessposition: data.maximumGaugePosition, //最大厚度位置
+						curves: 0
+					}, function(res) {
+						switch(res.code) {
+							case 0:
+                                layer.msg(res.data)
+								option2();
+								break;
+							case 10002:
+								layer.msg(res.data)
+								break;
+							case 10000:
+								layer.msg(res.data)
+								break;
+							case 10001:
+								layer.msg(res.data)
+								break;
+							default:
+								break;
+						}
+						console.log(res)
+					})
+				}
+				if(val == 2) {
+					$.get(path + 'updateBladeParameter', {
+						id: data.listid,
+						bladeattribute_id: data.bladeName, //叶片名称
+						section: data.CrossSection, //截面位置
+						rearcenterX: data.lastCenterX, //后缘圆心 OX
+						rearcenterY: data.lastCenterY, //后缘圆心 OY
+						frontangle: data.FrontRoundCut, //前缘角：
+						rearangle: data.AfterRoundCorner, //后缘角：
+						frontcenterX: data.frontCenterX, //前缘圆心 OX
+						frontcenterY: data.frontCenterY, //OY
+						majorradius: data.LongShaftRadius, //长轴半径
+						shortradius: data.MinorAxisRadius, //短轴半径
+						biegewinkel: data.BladeAngle, // 叶型弯角
+						deflection: data.maximumDeflection, //最大挠度
+						deflectionposition: data.maximumDeflectionPosition, //最大挠度位置
+						chordlength: data.chordLength, //弦长
+						thickness: data.maximumGauge, //最大厚度
+						thicknessposition: data.maximumGaugePosition //最大厚度位置
+					}, function(res) {
+						switch(res.code) {
+							case 0:
+                                $(".val").val(1);
+                                $("#bladeName").removeAttr("disabled")
+                                $("#CrossSection").removeAttr("disabled")
+                                layui.form.render();
+                                layer.msg(res.data)
+								option2();
+								break;
+							case 10002:
+								layer.msg(res.data)
+								break;
+							case 10000:
+								layer.msg(res.data)
+								break;
+							case 10001:
+								layer.msg(res.data)
+								break;
+							default:
+								break;
+						}
+						console.log(res)
+					})
+				}
+			});
+			table.on('toolbar(table2)', function(obj) {
+				var checkStatus = table.checkStatus(obj.config.id);
+				var data = checkStatus.data;
+				var value = $(".value").val()
+				console.log(data)
+				if(value == 1) {
+					if(JSON.stringify(data) == '[]') {
+						layer.alert("请选择修改项");
+					} else {
+						$("#bladeName").attr("disabled","disabled")
+                        $("#CrossSection").attr("disabled", "disabled")
+						console.log(JSON.stringify(data))
+						if(data.length > 1) {
+							layer.alert("修改只能单选进行")
+						} else {
+							let html
+							for(var i = 1; i <= data[0].section; i++) {
+								html += '<option value=' + i + '>' + i + '</option>'
+							}
+							$('#CrossSection').html(html)
+							layui.form.render("select");
+							var obj = {
+								listid: data[0].id,
+								bladeName: data[0].bladeattribute_id, //叶片名称
+								CrossSection: data[0].section, //截面位置
+								lastCenterX: data[0].rearcenterX, //后缘圆心 OX
+								lastCenterY: data[0].rearcenterY, //后缘圆心 OY
+								FrontRoundCut: data[0].frontangle, //前缘角：
+								AfterRoundCorner: data[0].rearangle, //后缘角：
+								frontCenterX: data[0].frontcenterX, //前缘圆心 OX
+								frontCenterY: data[0].frontcenterY, //OY
+								LongShaftRadius: data[0].majorradius, //长轴半径
+								MinorAxisRadius: data[0].shortradius, //短轴半径
+								BladeAngle: data[0].biegewinkel, // 叶型弯角
+								maximumDeflection: data[0].deflection, //最大挠度
+								maximumDeflectionPosition: data[0].deflectionposition, //最大挠度位置
+								chordLength: data[0].chordlength, //弦长
+								maximumGauge: data[0].thickness, //最大厚度
+								maximumGaugePosition: data[0].thicknessposition //最大厚度位置
+							};
+							form.val("formText", obj);
+							form.render('select')
+						}
+					}
+					$(".val").val(2)
+
+				} else {
+					console.log(data)
+					if(JSON.stringify(data) == '[]') {
+						layer.alert("请选择删除项");
+					} else {
+						if(data.length > 1) {
+							var arr = []
+
+							for(var i = 0; i < data.length; i++) {
+								arr.push(data[i].id)
+							}
+							$.get(path + 'deleteBladeParameterAll', {
+								"id": "" + arr + ""
+							}, function(res) {
+								console.log(res)
+								layer.msg("删除多个成功")
+                                option2();
+							})
+
+						} else {
+							$.get(path + 'deleteBladeParameter', {
+								id: data[0].id,
+							}, function(res) {
+								console.log(res)
+								layer.msg("删除一个成功")
+                                option2();
+							})
+						}
+					}
+				}
+			});
+			$(".amend1,.delete1").click(function() {
+				if($(this).is(".amend1")) {
+					$(".value").val(1)
+				}
+				if($(this).is(".delete1")) {
+					$(".value").val(2)
+				}
+				$(".getCheckDate").trigger("click");
+			})
+		})
+	</script>
+
+</html>

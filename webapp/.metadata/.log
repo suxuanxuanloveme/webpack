@@ -1,0 +1,376 @@
+!SESSION 2020-03-23 14:40:43.706 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_51
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -login -application com.aptana.commandline.launcher.LauncherApplication F:\mvvm\webapp\login.html
+Command-line arguments:  -os win32 -ws win32 -arch x86 -login -data   -application com.aptana.commandline.launcher.LauncherApplication F:\mvvm\webapp\login.html
+
+!ENTRY org.eclipse.ui 2 0 2020-03-23 14:40:46.370
+!MESSAGE Warnings while parsing the key bindings from the 'org.eclipse.ui.commands' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2020-03-23 14:40:46.370
+!MESSAGE Could not parse key sequence: plug-in='com.pandora.ui', id='org.eclipse.ui.edit.text.contentAssist.proposals', keySequence='Ctrl+Sapce'
+
+!ENTRY com.aptana.rcp 4 0 2020-03-23 14:40:46.747
+!MESSAGE ********HBuilder正常启动：preStartup********
+
+!ENTRY com.aptana.scripting 4 0 2020-03-23 14:40:49.437
+!MESSAGE (Build null) [ERROR]  An error occurred while parsing scope 'Build–in constant' : Cannot recover from the syntax error
+
+!ENTRY com.aptana.scripting 4 0 2020-03-23 14:40:49.439
+!MESSAGE (Build null) [ERROR]  An error occurred while parsing scope 'library class/type' : Cannot recover from the syntax error
+
+!ENTRY com.aptana.rcp 4 0 2020-03-23 14:40:50.109
+!MESSAGE ---------------------start check----------------------
+
+!ENTRY com.aptana.rcp 4 0 2020-03-23 14:40:50.110
+!MESSAGE check mode
+
+!ENTRY com.aptana.rcp 4 0 2020-03-23 14:40:50.259
+!MESSAGE workspace : file:\F:\mvvm\webapp
+
+!ENTRY com.aptana.rcp 4 0 2020-03-23 14:40:50.825
+!MESSAGE ********HBuilder正常启动：postStartup********
+
+!ENTRY com.pandora.rcp.upgrade 4 0 2020-03-23 14:40:51.131
+!MESSAGE (Build null) [ERROR]  HBuilder当前版本: 9.0.2.201803061935
+
+!ENTRY com.aptana.editor.css 4 0 2020-03-23 14:40:52.643
+!MESSAGE (Build null) [ERROR]  开始清理css错误marker...
+
+!ENTRY com.aptana.editor.css 4 0 2020-03-23 14:40:52.662
+!MESSAGE (Build null) [ERROR]  清理css错误marker结束
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:40:53.103
+!MESSAGE (Build null) [ERROR]  ADB PID:::2204
+
+!ENTRY com.pandora.index.store 4 0 2020-03-23 14:40:54.358
+!MESSAGE (Build null) [ERROR]  Port already in use: 56789; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+!STACK 0
+java.rmi.server.ExportException: Port already in use: 56789; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+	at sun.rmi.transport.tcp.TCPTransport.listen(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport.exportObject(Unknown Source)
+	at sun.rmi.transport.tcp.TCPEndpoint.exportObject(Unknown Source)
+	at sun.rmi.transport.LiveRef.exportObject(Unknown Source)
+	at sun.rmi.server.UnicastServerRef.exportObject(Unknown Source)
+	at sun.rmi.registry.RegistryImpl.setup(Unknown Source)
+	at sun.rmi.registry.RegistryImpl.<init>(Unknown Source)
+	at java.rmi.registry.LocateRegistry.createRegistry(Unknown Source)
+	at com.pandora.index.store.IndexStoreStartup.run(IndexStoreStartup.java:28)
+	at com.pandora.index.store.IndexStoreStartup.earlyStartup(IndexStoreStartup.java:18)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:87)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:66)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$69.run(Workbench.java:2726)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.net.BindException: Address already in use: JVM_Bind
+	at java.net.TwoStacksPlainSocketImpl.socketBind(Native Method)
+	at java.net.TwoStacksPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.TwoStacksPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createServerSocket(Unknown Source)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createServerSocket(Unknown Source)
+	at sun.rmi.transport.tcp.TCPEndpoint.newServerSocket(Unknown Source)
+	... 15 more
+
+!ENTRY com.pandora.launcher.core 4 0 2020-03-23 14:40:55.286
+!MESSAGE (Build null) [ERROR]  系统找不到指定的文件。
+!STACK 0
+com.sun.jna.platform.win32.Win32Exception: 系统找不到指定的文件。
+	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringValue(Advapi32Util.java:552)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.loadPath(LibraryFinder.java:58)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.<clinit>(LibraryFinder.java:50)
+	at com.pandora.launcher.core.iphone.jna.md.LibraryInstance.getMDLibrary(LibraryInstance.java:15)
+	at com.pandora.launcher.core.iphone.jna.idevice.win.WinDeviceLibrary.<clinit>(WinDeviceLibrary.java:72)
+	at com.pandora.launcher.core.iphone.jna.idevice.DeviceLibraryRegistry.getDeviceLibrary(DeviceLibraryRegistry.java:15)
+	at com.pandora.launcher.core.iphone.IPhoneLauncher.<init>(IPhoneLauncher.java:109)
+	at com.pandora.launcher.core.listener.DeviceStartupListener.earlyStartup(DeviceStartupListener.java:29)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:87)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:66)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$69.run(Workbench.java:2726)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.pandora.launcher.core 4 0 2020-03-23 14:40:55.328
+!MESSAGE (Build null) [ERROR]  系统找不到指定的文件。
+!STACK 0
+com.sun.jna.platform.win32.Win32Exception: 系统找不到指定的文件。
+	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringValue(Advapi32Util.java:552)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.loadPath(LibraryFinder.java:58)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.getMDLibrary(LibraryFinder.java:122)
+	at com.pandora.launcher.core.iphone.jna.md.LibraryInstance.getMDLibrary(LibraryInstance.java:15)
+	at com.pandora.launcher.core.iphone.jna.idevice.win.WinDeviceLibrary.<clinit>(WinDeviceLibrary.java:72)
+	at com.pandora.launcher.core.iphone.jna.idevice.DeviceLibraryRegistry.getDeviceLibrary(DeviceLibraryRegistry.java:15)
+	at com.pandora.launcher.core.iphone.IPhoneLauncher.<init>(IPhoneLauncher.java:109)
+	at com.pandora.launcher.core.listener.DeviceStartupListener.earlyStartup(DeviceStartupListener.java:29)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:87)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:66)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$69.run(Workbench.java:2726)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.pandora.launcher.core 4 0 2020-03-23 14:40:55.623
+!MESSAGE (Build null) [ERROR]  添加Android设备监听......
+
+!ENTRY com.pandora.stats.core 1 0 2020-03-23 14:40:56.496
+!MESSAGE 
+
+!ENTRY com.pandora.launcher.core 4 0 2020-03-23 14:40:57.457
+!MESSAGE (Build null) [ERROR]  系统找不到指定的文件。
+!STACK 0
+com.sun.jna.platform.win32.Win32Exception: 系统找不到指定的文件。
+	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringValue(Advapi32Util.java:552)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.loadPath(LibraryFinder.java:58)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.getMDLibrary(LibraryFinder.java:122)
+	at com.pandora.launcher.core.iphone.jna.md.LibraryInstance.getMDLibrary(LibraryInstance.java:15)
+	at com.pandora.launcher.core.iphone.jna.idevice.win.WinDeviceLibrary.addNotificationHandler(WinDeviceLibrary.java:77)
+	at com.pandora.launcher.core.iphone.IPhoneLauncher$5.run(IPhoneLauncher.java:799)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.pandora.launcher.core 4 0 2020-03-23 14:40:58.014
+!MESSAGE (Build null) [ERROR]  library is null!!!!!
+
+!ENTRY com.aptana.parsing 4 0 2020-03-23 14:41:02.740
+!MESSAGE (Build null) [ERROR]  无效的属性类型“.webkit.SearchBoxImpl@4135441”属性“searchBoxJavaBridge_”
+
+!ENTRY org.eclipse.equinox.p2.repository 4 0 2020-03-23 14:41:03.777
+!MESSAGE C:\Users\Administrator\Desktop\HBuilder\p2\org.eclipse.equinox.p2.repository\cache\content-561804826.jar 是合法的jar
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:03.946
+!MESSAGE (Build null) [ERROR]  ===Caption  ExecutablePath
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:03.949
+!MESSAGE (Build null) [ERROR]  ===adb.exe  C:\Users\Administrator\Desktop\HBuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:03.975
+!MESSAGE (Build null) [ERROR]  exe===adb.exe   path===c:\users\administrator\desktop\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:05.002
+!MESSAGE (Build null) [ERROR]  ADB Path===c:\users\administrator\desktop\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:05.007
+!MESSAGE (Build null) [ERROR]  ADB PID:::2204
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:05.414
+!MESSAGE (Build null) [ERROR]  ADB PID:::2204
+
+!ENTRY org.eclipse.equinox.p2.repository 4 0 2020-03-23 14:41:09.794
+!MESSAGE C:\Users\Administrator\Desktop\HBuilder\p2\org.eclipse.equinox.p2.repository\cache\content1190459293.jar 是合法的jar
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:11.074
+!MESSAGE (Build null) [ERROR]  ===Caption  ExecutablePath
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:11.078
+!MESSAGE (Build null) [ERROR]  ===adb.exe  C:\Users\Administrator\Desktop\HBuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:11.081
+!MESSAGE (Build null) [ERROR]  exe===adb.exe   path===c:\users\administrator\desktop\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:12.256
+!MESSAGE (Build null) [ERROR]  ===Caption  ExecutablePath
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:12.259
+!MESSAGE (Build null) [ERROR]  ===adb.exe  C:\Users\Administrator\Desktop\HBuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:12.262
+!MESSAGE (Build null) [ERROR]  exe===adb.exe   path===c:\users\administrator\desktop\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:12.747
+!MESSAGE (Build null) [ERROR]  ADB Path===c:\users\administrator\desktop\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:41:12.770
+!MESSAGE (Build null) [ERROR]  ADB Path===c:\users\administrator\desktop\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.rcp.upgrade 4 0 2020-03-23 14:41:16.577
+!MESSAGE (Build null) [ERROR]  最新版本: 9.1.29.201811231920
+
+!ENTRY com.pandora.rcp.upgrade 4 0 2020-03-23 14:41:16.859
+!MESSAGE (Build null) [ERROR]  上次提醒更新版本: 9.1.29.201811231920
+
+!ENTRY com.aptana.scripting 4 0 2020-03-23 14:41:18.399
+!MESSAGE (Build null) [ERROR]  loadBundles异常
+!STACK 0
+org.jruby.exceptions.RaiseException: (Errno::EINVAL) =::
+	at org.jruby.RubyHash.replace(org/jruby/RubyHash.java:1623)
+
+!ENTRY com.pandora.stats.core 4 0 2020-03-23 14:41:59.942
+!MESSAGE (Build null) [ERROR]  list job time: 3386
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:59:30.778
+!MESSAGE (Build null) [ERROR]  ADB Path===C:\Users\Administrator\Desktop\HBuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:59:46.292
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:59:50.148
+!MESSAGE (Build null) [ERROR]  ADB PID:::5688
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 14:59:54.857
+!MESSAGE (Build null) [ERROR]  Wmic Error:::No Instance(s) Available.
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 14:59:54.863
+!MESSAGE (Build null) [ERROR]  Wmic Error:::
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:59:55.405
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:59:56.030
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 14:59:59.549
+!MESSAGE (Build null) [ERROR]  ADB Path===C:\Users\Administrator\Desktop\HBuilder\tools\adbs\1.0.31\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:02.441
+!MESSAGE (Build null) [ERROR]  ADB PID:::10560
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:07.963
+!MESSAGE (Build null) [ERROR]  ADB PID:::9364
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:07.971
+!MESSAGE (Build null) [ERROR]  Wmic Error:::No Instance(s) Available.
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:07.977
+!MESSAGE (Build null) [ERROR]  Wmic Error:::
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:14.382
+!MESSAGE (Build null) [ERROR]  ADB PID:::1064
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:15.647
+!MESSAGE (Build null) [ERROR]  Wmic Error:::No Instance(s) Available.
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:15.652
+!MESSAGE (Build null) [ERROR]  Wmic Error:::
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:15.945
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:18.540
+!MESSAGE (Build null) [ERROR]  Wmic Error:::No Instance(s) Available.
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:18.546
+!MESSAGE (Build null) [ERROR]  Wmic Error:::
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:18.761
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:24.835
+!MESSAGE (Build null) [ERROR]  ADB PID:::10276
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:24.953
+!MESSAGE (Build null) [ERROR]  Netstat Error:::FINDSTR: 写入错误
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:26.918
+!MESSAGE (Build null) [ERROR]  Wmic Error:::No Instance(s) Available.
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:26.924
+!MESSAGE (Build null) [ERROR]  Wmic Error:::
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:27.187
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:34.370
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:38.490
+!MESSAGE (Build null) [ERROR]  ADB PID:::3008
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:00:38.649
+!MESSAGE (Build null) [ERROR]  Netstat Error:::FINDSTR: 写入错误
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:42.547
+!MESSAGE (Build null) [ERROR]  ===Caption  ExecutablePath
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:42.552
+!MESSAGE (Build null) [ERROR]  ===adb.exe  C:\Users\Administrator\Desktop\HBuilder\tools\adbs\1.0.31\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:42.558
+!MESSAGE (Build null) [ERROR]  exe===adb.exe   path===c:\users\administrator\desktop\hbuilder\tools\adbs\1.0.31\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:42.818
+!MESSAGE (Build null) [ERROR]  ADB Path===c:\users\administrator\desktop\hbuilder\tools\adbs\1.0.31\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:45.389
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:55.096
+!MESSAGE (Build null) [ERROR]  ADB Path===C:\Users\Administrator\Desktop\HBuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:00:58.174
+!MESSAGE (Build null) [ERROR]  ADB Path===C:\Users\Administrator\Desktop\HBuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:03.624
+!MESSAGE (Build null) [ERROR]  ADB Path===C:\Users\Administrator\Desktop\HBuilder\tools\adbs\1.0.31\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:06.422
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:12.621
+!MESSAGE (Build null) [ERROR]  ADB PID:::11068
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:01:12.651
+!MESSAGE (Build null) [ERROR]  Netstat Error:::FINDSTR: 写入错误
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:15.953
+!MESSAGE (Build null) [ERROR]  ===Caption  ExecutablePath
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:15.959
+!MESSAGE (Build null) [ERROR]  ===adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:16.016
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:18.772
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:27.647
+!MESSAGE (Build null) [ERROR]  ADB Path===null
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:30.677
+!MESSAGE (Build null) [ERROR]  ADB PID:::11532
+
+!ENTRY com.pandora.core.utils 4 0 2020-03-23 15:01:30.691
+!MESSAGE (Build null) [ERROR]  Netstat Error:::FINDSTR: 写入错误
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:33.298
+!MESSAGE (Build null) [ERROR]  ===Caption  ExecutablePath
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:33.305
+!MESSAGE (Build null) [ERROR]  ===adb.exe  C:\Users\Administrator\Desktop\HBuilder\tools\adbs\1.0.31\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:33.310
+!MESSAGE (Build null) [ERROR]  exe===adb.exe   path===c:\users\administrator\desktop\hbuilder\tools\adbs\1.0.31\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2020-03-23 15:01:33.348
+!MESSAGE (Build null) [ERROR]  ADB Path===c:\users\administrator\desktop\hbuilder\tools\adbs\1.0.31\adb.exe
+
+!ENTRY com.aptana.rcp 4 0 2020-03-23 15:23:40.684
+!MESSAGE ********HBuilder正常关闭：preShutdown********
+
+!ENTRY com.aptana.commandline.launcher 4 0 2020-03-23 15:23:40.746
+!MESSAGE socket closed
+!STACK 0
+java.net.SocketException: socket closed
+	at java.net.TwoStacksPlainSocketImpl.socketAccept(Native Method)
+	at java.net.AbstractPlainSocketImpl.accept(Unknown Source)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at com.aptana.commandline.launcher.server.LauncherServer$CommandLineArgsServer.run(LauncherServer.java:129)
+
+!ENTRY com.aptana.rcp 4 0 2020-03-23 15:23:40.833
+!MESSAGE ********HBuilder正常关闭：postShutdown********
+
+!ENTRY com.aptana.rcp 1 0 2020-03-23 15:23:42.848
+!MESSAGE close CEF
+
+!ENTRY org.eclipse.core.jobs 2 2 2020-03-23 15:23:44.429
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: com.pandora.pack.core.download.StartupDownloadPackage$1
+
+!ENTRY org.eclipse.core.jobs 2 2 2020-03-23 15:23:44.430
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.ui.internal.AbstractWorkingSetManager$10

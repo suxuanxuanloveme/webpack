@@ -1,0 +1,315 @@
+body {
+    /*background: -moz-linear-gradient(top, #000000 0%, #ffffff 100%);
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #000000), color-stop(100%, #ffffff));
+                background: -webkit-linear-gradient(top, #000000 0%, #ffffff 100%);
+                background: -o-linear-gradient(top, #000000 0%, #ffffff 100%);
+                background: -ms-linear-gradient(top, #000000 0%, #ffffff 100%);
+                background: linear-gradient(to bottom, #000000 0%, #ffffff 100%);*/
+    color: #666;
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background-color: #F5F5F5;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+    background-color: #c8c8c8;
+}
+
+.layui-input,
+.layui-select,
+.layui-textarea {
+    height: 35px !important;
+}
+
+.layui-form-pane .layui-form-label {
+    height: 35px !important;
+    line-height: 17px !important;
+}
+
+.layui-table-tool {
+    display: none;
+}
+
+.layui-form-item .layui-inline {
+    margin-bottom: 0px;
+}
+
+.layui-table {
+    margin: 0 0 !important;
+}
+
+.layui-form-item {
+    margin-bottom: 8px !important;
+}
+
+.iconfont {
+    font-size: 25px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+}
+
+.layui-btn-container {
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: white;
+    padding: 13px 0 5px 0;
+    border-top: 1px solid #e6e6e6;
+    z-index: 1000;
+    left: 0;
+}
+
+.layui-table-view {
+    margin-bottom: 70px;
+}
+
+.inline {
+    display: none;
+}
+
+.layui-table-page {
+    text-align: center;
+}
+
+.pane {
+    margin: 100px auto;
+    text-align: center;
+}
+
+.layui-form-label {
+    min-width: 85px;
+    width: auto;
+    max-width: 115px;
+    overflow: initial !important;
+}
+
+.layui-layer-btn {
+    text-align: center !important;
+}
+
+.layui-table {
+    /*margin-bottom: 70px;*/
+}
+
+.layui-layer-content {
+    text-align: center;
+}
+
+.layui-table th,
+.layui-table td {
+    word-break: keep-all;
+}
+
+.scroll {
+    min-height: 250px;
+    float: left;
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
+
+.pane .layui-form-item {
+    margin-bottom: 25px !important;
+}
+
+.layui-form-mid {
+    line-height: 17px !important;
+}
+
+.layui-btn {
+    height:25px !important;
+    line-height:25px;
+    padding: 0px 5px;
+}
+
+.i {
+    padding: 0 40px;
+    margin: 0 35px;
+}
+
+.span-block {
+    display: inline-block;
+    margin-left: -12px;
+    width: 50px;
+    padding: 8px 15px;
+    height: 35px;
+    line-height: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px 0 0 2px;
+    text-align: center;
+    background-color: #FBFBFB;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 1px solid #e8e8e8;
+    border-left: none;
+}
+
+.layui-btn-primary span {
+    padding: 0 10px;
+}
+
+.icon-shuxing-shouqi:before {
+    content: "\e639";
+    font-size: 23px;
+}
+
+.icon-jihe:before {
+    content: "\e632";
+    font-size: 32px;
+}
+
+.icon-shezhixitongshezhigongnengshezhishuxing-xian:before {
+    content: "\e795";
+    font-size: 30px;
+}
+
+.icon-bangzhu:before {
+    content: "\e676";
+    font-size: 32px;
+}
+
+.uploader {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    cursor: default;
+    padding: 0;
+    margin: 10px 0px;
+    -moz-box-shadow: 0px 0px 5px #ddd;
+    -webkit-box-shadow: 0px 0px 5px #ddd;
+    box-shadow: 0px 0px 5px #ddd;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.filename {
+    float: left;
+    display: inline-block;
+    outline: 0 none;
+    height: 32px;
+    width: 180px;
+    margin: 0;
+    padding: 8px 10px;
+    overflow: hidden;
+    cursor: default;
+    border: 1px solid;
+    border-right: 0;
+    font: 9pt/100% Arial, Helvetica, sans-serif;
+    color: #777;
+    text-shadow: 1px 1px 0px #fff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -moz-border-radius: 5px 0px 0px 5px;
+    -webkit-border-radius: 5px 0px 0px 5px;
+    border-radius: 5px 0px 0px 5px;
+    background: #f5f5f5;
+    background: -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fafafa), color-stop(100%, #f5f5f5));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fafafa', endColorstr='#f5f5f5', GradientType=0);
+    border-color: #ccc;
+    -moz-box-shadow: 0px 0px 1px #fff inset;
+    -webkit-box-shadow: 0px 0px 1px #fff inset;
+    box-shadow: 0px 0px 1px #fff inset;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.button {
+    float: left;
+    height: 32px;
+    display: inline-block;
+    outline: 0 none;
+    padding: 8px 12px;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid;
+    font: bold 9pt/100% Arial, Helvetica, sans-serif;
+    -moz-border-radius: 0px 5px 5px 0px;
+    -webkit-border-radius: 0px 5px 5px 0px;
+    border-radius: 0px 5px 5px 0px;
+    -moz-box-shadow: 0px 0px 1px #fff inset;
+    -webkit-box-shadow: 0px 0px 1px #fff inset;
+    box-shadow: 0px 0px 1px #fff inset;
+}
+
+.uploader input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    height: 30px;
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+    opacity: 0;
+}
+
+.lauyui-ul input[type=button]::-moz-focus-inner {
+    padding: 0;
+    border: 0 none;
+    -moz-box-sizing: content-box;
+}
+
+.lauyui-ul input[type=button]::-webkit-focus-inner {
+    padding: 0;
+    border: 0 none;
+    -webkit-box-sizing: content-box;
+}
+
+.lauyui-ul input[type=text]::-moz-focus-inner {
+    padding: 0;
+    border: 0 none;
+    -moz-box-sizing: content-box;
+}
+
+.lauyui-ul input[type=text]::-webkit-focus-inner {
+    padding: 0;
+    border: 0 none;
+    -webkit-box-sizing: content-box;
+}
+
+/* White Color Scheme ------------------------ */
+.black .button {
+    color: #fff;
+    text-shadow: 1px 1px 0px #111111;
+    background: #222222;
+    background: -moz-linear-gradient(top, #444444 0%, #222222 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #444444), color-stop(100%, #222222));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#222222', GradientType=0);
+    border-color: #111111;
+}
+
+.black:hover .button {
+    background: #444444;
+    background: -moz-linear-gradient(top, #222222 0%, #444444 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #222222), color-stop(100%, #444444));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#222222', endColorstr='#444444', GradientType=0);
+}

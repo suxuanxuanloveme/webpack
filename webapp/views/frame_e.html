@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../static/css/layui-2.5.5/dist/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../static/css/index.css" />
+		<style type="text/css">
+			.layui-btn-container {
+				text-align: center;
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+				background: white;
+				padding: 13px 0 5px 0;
+				border-top: 1px solid #e6e6e6;
+				z-index: 1000;
+				left: 0;
+			}
+			
+			body {
+				padding: 5px;
+			}
+			
+			.layui-table-tool {
+				display: none;
+			}
+			
+			.layui-table-view {
+				margin-bottom: 70px;
+			}
+			.examine {
+				border: 1px solid #C9C9C9;
+				background-color: #fff;
+				color: #999!important;
+			}
+			.eacharts {
+				width: 900px;
+				height: 450px;
+				position: absolute;
+				right: 20%;
+				top: 10%;
+				z-index: 10;
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+	<div class="eacharts" draggable="true" id="main"></div>
+		<form class="layui-form layui-form-pane" lay-filter="formTesting">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">选择叶片名称</label>
+					<div class="layui-input-inline">
+						<select name="statistics" id="statistics" lay-filter="statistics">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">截面位置</label>
+					<div class="layui-input-inline">
+						<select name="error_position" id="error_position" lay-filter="error_position">
+						</select>
+					</div>
+					<div class="layui-form-mid layui-word-aux layui-btn layui-btn-primary" data-id="3">
+						<span>统计</span></div>
+				</div>
+				<div class="layui-btn examine">
+					查看统计表报
+				</div>
+			</div>
+			<div class="layui-form-item" style="margin-bottom: 100px !important;">
+				<div class="layui-inline">
+					<label class="layui-form-label">form</label>
+					<div class="layui-input-inline">
+						<select name="stat" id="stat" lay-filter="stat">
+						</select>
+					</div>
+					<span class="span-block">to</span>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-input-inline">
+						<select name="end" id="end" lay-filter="end">
+						</select>
+					</div>
+				</div>
+
+			</div>
+			<div class="scroll">
+				<table class="layui-table" id="table6" lay-filter="table6">
+				</table>
+			</div>
+		</form>
+	</body>
+	<script src="../static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../static/js/echarts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../static/css/layui-2.5.5/dist/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//获取项目名称
+        var pathName = window.document.location.pathname;
+        var index = pathName.lastIndexOf("/");
+        var projectName = pathName.slice(0, index -5)
+        console.log(projectName)
+        var path = "http://" + window.location.host + projectName
+		layui.use(['element', 'form', 'table', 'layer'], function() {
+			var $ = layui.jquery,
+				form = layui.form,
+				table = layui.table,
+				element = layui.element;
+			$(".scroll").width($("body").width() - 5)
+			$.get(path + 'findMeasureName', function(res) {
+				console.log(res)
+				var html
+				for(var name in res.data) {
+					html += '<option  value=' + res.data[name].bladeattribute_id + '>' + res.data[name].bladename11 + '</option>'
+				}
+				$('#statistics').html(html)
+				layui.form.render("select");
+				// $('select[name="statistics"]').next().find('.layui-select-title input').click();
+				// $('select[name="statistics"]').next().find('.layui-anim').children('dd').eq(0).click();
+			})
+			form.on('select(statistics)', function(data) {
+                $.get(path + 'findMeasureSectionByBid', {
+                    bladeattribute_id: data.value
+                }, function(res) {
+                    console.log(res)
+                    let htmls = ''
+                    var htmlt='<option value="">请选择</option>'
+                    for(var i = 0; i < res.data.length; i++) {
+                        htmls += '<option value=' + res.data[i] + '>' + res.data[i] + '</option>'
+                    }
+                    $('#error_position').html(htmlt+htmls)
+                    layui.form.render("select");
+                })
+			})
+            form.on('select(error_position)', function(data) {
+                var datas = form.val("formTesting")
+                $.get(path + 'findMeasureMeasureByBidAndSect', {
+                    bladeattribute_id: datas.statistics,
+                    section: data.value
+                }, function (res) {
+                    console.log(res)
+                    let html = '', htmls = ''
+                    var htmlt='<option value="">请选择</option>'
+                    for (var i = 0; i < res.data.length; i++) {
+                        html += '<option value=' + res.data[i] + '>' + res.data[i] + '</option>'
+                    }
+                    $('#stat,#end').html(htmlt+html)
+                    layui.form.render("select");
+                })
+            })
+            $(".examine").click(function() {
+                $(".eacharts").show()
+            })
+            var dragdiv = document.querySelector('#main');
+            var x, y;  //记录到点击时鼠标到移动框左边和上边的距离
+            dragdiv.addEventListener('dragstart', function (e) {
+                e.dataTransfer.effectAllowed = "move";  //移动效果
+                e.dataTransfer.setData("text", '');  //附加数据，　没有这一项，firefox中无法移动
+                x = e.offsetX || e.layerX;
+                y = e.offsetY || e.layerY;
+                return true;
+            }, false);
+            document.addEventListener('dragover', function (e) {//取消冒泡 ,不取消则不能触发 drop事件
+                e.preventDefault()|| e.stopPropagation();
+            }, false);
+            document.addEventListener('drop', function (e) {
+                dragdiv.style.left = (e.pageX - x) + 'px';
+                dragdiv.style.top = (e.pageY - y) + 'px';
+                e.preventDefault() || e.stopPropagation();  //不取消，firefox中会触发网页跳转到查找setData中的内容
+            }, false);
+			//图标函数这个函数应该在数据表格的后面
+            var myChart = echarts.init(document.getElementById('main'));
+            //数据
+            options = {
+                backgroundColor: '#f5f5f2',
+                title: {
+                    text: '折线图堆叠'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['上翼', '下翼', '左翼', '右翼', '尾翼']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        myTool1: {
+                            show: true,
+                            title: '关闭',
+                            icon: 'path://M432.45,595.444c0,2.177-4.661,6.82-11.305,6.82c-6.475,0-11.306-4.567-11.306-6.82s4.852-6.812,11.306-6.812C427.841,588.632,432.452,593.191,432.45,595.444L432.45,595.444z M421.155,589.876c-3.009,0-5.448,2.495-5.448,5.572s2.439,5.572,5.448,5.572c3.01,0,5.449-2.495,5.449-5.572C426.604,592.371,424.165,589.876,421.155,589.876L421.155,589.876z M421.146,591.891c-1.916,0-3.47,1.589-3.47,3.549c0,1.959,1.554,3.548,3.47,3.548s3.469-1.589,3.469-3.548C424.614,593.479,423.062,591.891,421.146,591.891L421.146,591.891zM421.146,591.891',
+                            onclick: function() {
+                                $(".eacharts").hide()
+                            }
+                        }
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    grid: '10%',
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: ['#315070'],
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                    boundaryGap: false,
+                    data: ['样本数', '平均弦长', '最大弦长误差', '最小弦长误差', '最小前缘角误差', '最大前缘角误差', '后圆角误差']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: '上翼',
+                    type: 'line',
+                    stack: '总量',
+                    data: [1, 2, 3, -1, -2, 3, 4],
+                    smooth: true
+                },
+                    {
+                        name: '下翼',
+                        type: 'line',
+                        stack: '总量',
+                        data: [3, 2, 3, -1, -2, 3, 4],
+                        smooth: true
+                    },
+                    {
+                        name: '左翼',
+                        type: 'line',
+                        stack: '总量',
+                        data: [2, -1, 3, -1, -2, 3, -4],
+                        smooth: true
+                    },
+                    {
+                        name: '右翼',
+                        type: 'line',
+                        stack: '总量',
+                        data: [3, -2, 3, -1, -2, -3, 4],
+                        smooth: true
+                    },
+                    {
+                        name: '尾翼',
+                        type: 'line',
+                        stack: '总量',
+                        data: [4, 1, 3, -1, -2, 3, 4],
+                        smooth: true
+                    }
+                ]
+            };
+            myChart.setOption(options);
+                
+                
+			function option6() {
+				table.render({
+					elem: '#table6',
+					url: path + 'findAllErrorAnalysis',
+					toolbar: '#toolbarDems',
+					title: '用户数据表',
+					cols: [
+						[{
+							field: 'bladename11',
+							title: '叶片名称',
+							width: 100
+						},{
+							field: 'section',
+							title: '截面位置',
+							width: 100
+						}, {
+							field: 'specimentotal',
+							title: '样本数',
+							width: 100
+						}, {
+							field: 'clmean',
+							title: '平均弦长误差',
+							width: 120
+						}, {
+							field: 'clbig',
+							title: '最大弦长误差',
+							width: 120
+						}, {
+							field: 'cllittle',
+							title: '最小弦长误差',
+							width: 120
+						}, {
+							field: 'clvariance',
+							title: '弦长误差方差',
+							width: 120
+						}, {
+							field: 'falittle',
+							title: '最小前缘角误差',
+							width: 120
+						}, {
+							field: 'famean',
+							title: '平均前缘角误差',
+							width: 130
+						}, {
+							field: 'fabig',
+							title: '最大前缘角误差',
+							width: 130
+						}, {
+							field: 'favariance',
+							title: '前缘角误差方差',
+							width: 130
+						}, {
+							field: 'rvariance',
+							title: '后缘角误差方差',
+							width: 130
+						}, {
+							field: 'dbig',
+							title: '最大挠度误差',
+							width: 130
+						}, {
+							field: 'tpvariance',
+							title: '厚度位置误差方差',
+							width: 100
+						}, {
+							field: 'tbig',
+							title: '最大厚度误差',
+							width: 100
+						}, {
+							field: 'dpbig',
+							title: '最大挠度位置误差',
+							width: 100
+						}, {
+							field: 'tpbig',
+							title: '最大厚度位置误差',
+							width: 100
+						}, {
+							field: 'bendvariance',
+							title: '叶型弯角误差方差',
+							width: 100
+						}, {
+							field: 'favariance',
+							title: '前缘角误差方差',
+							width: 100
+						}, {
+							field: 'rabig',
+							title: '最大后缘角误差',
+							width: 100
+						}, {
+							field: 'ralittle',
+							title: '最小后缘角误差',
+							width: 100
+						}, {
+							field: 'ramean',
+							title: '平均后缘角误差',
+							width: 100
+						}, {
+							field: 'dlittle',
+							title: '最小挠度误差',
+							width: 100
+						}, {
+							field: 'dmean',
+							title: '平均挠度误差',
+							width: 100
+						}, {
+							field: 'dvariance',
+							title: '挠度误差方差',
+							width: 100
+						}, {
+							field: 'dplittle',
+							title: '最小挠度位置误差',
+							width: 100
+						}, {
+							field: 'dpmean',
+							title: '平均挠度位置误差',
+							width: 100
+						}, {
+							field: 'dpvariance',
+							title: '挠度位置误差方差',
+							width: 100
+						}, {
+							field: 'tlittle',
+							title: '最小厚度误差',
+							width: 100
+						}, {
+							field: 'tmean',
+							title: '平均厚度误差',
+							width: 100
+						}, {
+							field: 'tvariance',
+							title: '厚度误差方差',
+							width: 100
+						}, {
+							field: 'tplittle',
+							title: '最小厚度位置误差',
+							width: 100
+						}, {
+							field: 'tpmean',
+							title: '平均厚度位置误差',
+							width: 100
+						}, {
+							field: 'bendlittle',
+							title: '最小叶型弯角误差',
+							width: 100
+						}, {
+							field: 'bendbig',
+							title: '最大叶型弯角误差',
+							width: 100
+						}, {
+							field: 'bendmean',
+							title: '平均叶型弯角误差',
+							width: 100
+						}]
+					],
+					page: true
+				});
+			}
+			option6();
+			//单条查询  //全部查询 + 误差统计分析  统计 如果有bug分开写
+			$(".layui-form-mid").click(function() {
+				$("form").submit(false)
+				var data = form.val("formTesting")
+				// var arr = []
+				// var start = $("#stat option:selected").attr("data-id")
+				// var end = $("#end option:selected").attr("data-id")
+				// var num = parseInt(start)
+				// var nums = parseInt(end)
+                // console.log("开始"+num)
+				// console.log("结束"+nums)
+
+				// if(num > nums) {
+				// 	alert("查询条件不符合")
+				// } else {
+					// for(var i = 0; i < $("#stat option").length; i++) {
+					// 	if(parseInt($("#stat option")[i].getAttribute("data-id")) >= parseInt(start) && parseInt($("#stat option")[i].getAttribute("data-id")) <= parseInt(end)) {
+					// 		arr.push($("#stat option")[i].getAttribute("value"))
+					// 	}
+					// }
+
+                    // Integer bladeattribute_id, Integer section,String measure_sn,String measure_sn2
+
+					table.render({
+						elem: '#table6',
+						url: path + 'fingErrorByBlaNaOrSectOrMeaNa?section='+data.error_position+'&measure_sn='+data.stat+'&bladeattribute_id='+data.statistics+'&measure_sn2='+data.end,
+						toolbar: '#toolbarDems',
+						title: '用户数据表',
+						cols: [
+							[{
+								field: 'bladename11',
+								title: '叶片名称',
+								width: 100
+							}, {
+                                field: 'section',
+                                title: '截面位置',
+                                width: 100
+                            }, {
+								field: 'specimentotal',
+								title: '样本数',
+								width: 100
+							}, {
+								field: 'clmean',
+								title: '平均弦长误差',
+								width: 120
+							}, {
+								field: 'clbig',
+								title: '最大弦长误差',
+								width: 120
+							}, {
+								field: 'cllittle',
+								title: '最小弦长误差',
+								width: 120
+							}, {
+								field: 'clvariance',
+								title: '弦长误差方差',
+								width: 120
+							}, {
+								field: 'falittle',
+								title: '最小前缘角误差',
+								width: 120
+							}, {
+								field: 'famean',
+								title: '平均前缘角误差',
+								width: 130
+							}, {
+								field: 'fabig',
+								title: '最大前缘角误差',
+								width: 130
+							}, {
+								field: 'favariance',
+								title: '前缘角误差方差',
+								width: 130
+							}, {
+								field: 'rvariance',
+								title: '后缘角误差方差',
+								width: 130
+							}, {
+								field: 'dbig',
+								title: '最大挠度误差',
+								width: 130
+							}, {
+								field: 'tpvariance',
+								title: '厚度位置误差方差',
+								width: 100
+							}, {
+								field: 'tbig',
+								title: '最大厚度误差',
+								width: 100
+							}, {
+								field: 'dpbig',
+								title: '最大挠度位置误差',
+								width: 100
+							}, {
+								field: 'tpbig',
+								title: '最大厚度位置误差',
+								width: 100
+							}, {
+								field: 'bendvariance',
+								title: '叶型弯角误差方差',
+								width: 100
+							}, {
+								field: 'favariance',
+								title: '前缘角误差方差',
+								width: 100
+							}, {
+								field: 'rabig',
+								title: '最大后缘角误差',
+								width: 100
+							}, {
+								field: 'ralittle',
+								title: '最小后缘角误差',
+								width: 100
+							}, {
+								field: 'ramean',
+								title: '平均后缘角误差',
+								width: 100
+							}, {
+								field: 'dlittle',
+								title: '最小挠度误差',
+								width: 100
+							}, {
+								field: 'dmean',
+								title: '平均挠度误差',
+								width: 100
+							}, {
+								field: 'dvariance',
+								title: '挠度误差方差',
+								width: 100
+							}, {
+								field: 'dplittle',
+								title: '最小挠度位置误差',
+								width: 100
+							}, {
+								field: 'dpmean',
+								title: '平均挠度位置误差',
+								width: 100
+							}, {
+								field: 'dpvariance',
+								title: '挠度位置误差方差',
+								width: 100
+							}, {
+								field: 'tlittle',
+								title: '最小厚度误差',
+								width: 100
+							}, {
+								field: 'tmean',
+								title: '平均厚度误差',
+								width: 100
+							}, {
+								field: 'tvariance',
+								title: '厚度误差方差',
+								width: 100
+							}, {
+								field: 'tplittle',
+								title: '最小厚度位置误差',
+								width: 100
+							}, {
+								field: 'tpmean',
+								title: '平均厚度位置误差',
+								width: 100
+							}, {
+								field: 'bendlittle',
+								title: '最小叶型弯角误差',
+								width: 100
+							}, {
+								field: 'bendbig',
+								title: '最大叶型弯角误差',
+								width: 100
+							}, {
+								field: 'bendmean',
+								title: '平均叶型弯角误差',
+								width: 100
+							}]
+						],
+						page: true,
+						done:function(res){
+							switch (res.code){
+								case 10002:
+								    layer.msg(res.message)
+								    break;
+								default:
+                                    break;
+							}
+						}
+					});
+				// }
+			})
+
+		})
+	</script>
+
+</html>

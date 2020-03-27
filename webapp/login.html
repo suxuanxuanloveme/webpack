@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>压气机叶片叶型设计与加工误差分析</title>
+    <style type="text/css">
+        .login-page {
+            width: 360px;
+            padding: 0 0 0;
+            margin: auto;
+        }
+
+        html {
+            height: 100vh;
+        }
+
+        .form {
+            position: relative;
+            z-index: 1;
+            background: #FFFFFF;
+            max-width: 360px;
+            margin: 0 auto 100px;
+            padding: 45px;
+            text-align: center;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        .form input {
+            font-family: "Roboto", sans-serif;
+            outline: 0;
+            background: #f2f2f2;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        body{}
+        .form button {
+            font-family: "Microsoft YaHei", "Roboto", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: #4db3d1;
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            color: #FFFFFF;
+            font-size: 14px;
+            -webkit-transition: all 0.3 ease;
+            transition: all 0.3 ease;
+            cursor: pointer;
+        }
+
+        .form button:hover,
+        .form button:active,
+        .form button:focus {
+            background: #499fb9
+        }
+
+        .form .message {
+            margin: 15px 0 0;
+            color: #b3b3b3;
+            font-size: 12px;
+        }
+
+        .form .message a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .form .register-form {
+            display: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .container:before,
+        .container:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .container .info {
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .container .info h1 {
+            margin: 0 0 15px;
+            padding: 0;
+            font-size: 36px;
+            font-weight: 300;
+            color: #1a1a1a;
+        }
+
+        .container .info span {
+            color: #4d4d4d;
+            font-size: 12px;
+        }
+
+        .container .info span a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .container .info span .fa {
+            color: #EF3B3A;
+        }
+
+        body {
+            background: #76b852;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(right, #445ac8, #17676f);
+            background: -moz-linear-gradient(right, #445ac8, #17676f);
+            background: -o-linear-gradient(right, #445ac8, #17676f);
+            background: linear-gradient(to top, #445ac8, #17676f);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .shake_effect {
+            -webkit-animation-name: shake;
+            animation-name: shake;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+        }
+
+        @-webkit-keyframes shake {
+            from,
+            to {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                -webkit-transform: translate3d(-10px, 0, 0);
+                transform: translate3d(-10px, 0, 0);
+            }
+            20%,
+            40%,
+            60%,
+            80% {
+                -webkit-transform: translate3d(10px, 0, 0);
+                transform: translate3d(10px, 0, 0);
+            }
+        }
+
+        @keyframes shake {
+            from,
+            to {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                -webkit-transform: translate3d(-10px, 0, 0);
+                transform: translate3d(-10px, 0, 0);
+            }
+            20%,
+            40%,
+            60%,
+            80% {
+                -webkit-transform: translate3d(10px, 0, 0);
+                transform: translate3d(10px, 0, 0);
+            }
+        }
+
+        p.center {
+            color: #fff;
+            font-family: "Microsoft YaHei";
+
+        }
+
+        .align {
+            text-align: center;
+            padding: 8% 0 30px;
+        }
+    </style>
+</head>
+<body>
+<!--<p class="center">登录用户名为：admin，密码为admin</p>
+<p class="center">在用户名和密码错误时，点击登录按钮可以看到表单的摇晃效果。</p>-->
+<div class="align"><img src="./static/img/img.png"/></div>
+<div id="wrapper" class="login-page">
+    <div id="login_form" class="form">
+        <form class="register-form">
+            <input type="text" placeholder="用户名" value="admin" id="r_user_name"/>
+            <input type="password" placeholder="密码" id="r_password"/>
+            <button id="create">创建账户</button>
+            <p class="message">已经有了一个账户?
+                <a href="#">立刻登录</a>
+            </p>
+        </form>
+        <form class="login-form">
+            <input type="text" placeholder="用户名" value="" id="user_name"/>
+            <input type="password" value="" placeholder="密码" id="password"/>
+            <button id="login">登　录</button>
+            <!--<p class="message">还没有账户?-->
+            <!--<a href="#">立刻创建</a>-->
+            <!--</p>-->
+        </form>
+    </div>
+</div>
+<script src="./static/js/jquery-2.1.0.js"></script>
+<script src="./static/css/layui-2.5.5/dist/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="./static/js/sesson.js"></script>
+<script type="text/javascript">
+    layui.use(['element', 'form', 'table', 'layer'], function() {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            element = layui.element;
+        //获取项目名称
+        var pathName = window.document.location.pathname;
+        var index = pathName.lastIndexOf("/");
+        var projectName = pathName.slice(0, index + 1)
+        var path = "http://" + window.location.host + projectName
+
+        function check_login() {
+            var username = $("#user_name").val();
+            var password = $("#password").val();
+            if (username != "" && password != "") {
+                $.get(path + "logins", {username: username, password: password}, function (data) {
+                    console.log(data)
+                    switch (data.code) {
+                        case  1:
+                            layer.alert(data.message)
+                            break;
+                        case  2:
+                            layer.alert(data.message)
+                            break;
+                        case  0:
+                            var obj = {
+                                name: data.data,
+                                just: data.just,
+                                username:data.username,
+                                date:data.date
+                            }
+                            sessionStorage.setItem('user', JSON.stringify(obj));
+                            window.location.href = './index.html'
+                            break;
+                        default:
+                            break;
+                    }index
+                });
+
+            } else {
+                $("#login_form").removeClass('shake_effect');
+                setTimeout(function () {
+                    $("#login_form").addClass('shake_effect')
+                }, 1);
+            }
+        }
+
+        function check_register() {
+            var username = $("#r_user_name").val();
+            var password = $("#r_password").val();
+            if (password != "" && username != "") {
+                $.get(path + "register", {username: username, password: password}, function (data) {
+                    console.log(data)
+                    switch (data.code) {
+                        case  10002:
+                            layer.msg(data.message)
+                            break;
+                        case  10000:
+                            layer.msg(data.message)
+                            break;
+                        case  10001:
+                            layer.msg(data.message)
+                            break;
+                        case  0:
+                            $("#user_name").val("");
+                            $("#password").val("");
+                            alert(data.data);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            } else {
+                $("#login_form").removeClass('shake_effect');
+                setTimeout(function () {
+                    $("#login_form").addClass('shake_effect')
+                }, 1);
+            }
+        }
+
+        $(function () {
+            $("#create").click(function () {
+                check_register();
+                return false;
+            })
+            $("#login").click(function () {
+                check_login();
+                return false;
+            })
+            $('.message a').click(function () {
+                $('form').animate({
+                    height: 'toggle',
+                    opacity: 'toggle'
+                }, 'slow');
+            });
+        })
+    })
+</script>
+</body>
+
+</html>

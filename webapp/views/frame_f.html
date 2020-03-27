@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../static/css/layui-2.5.5/dist/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../static/font/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/index.css" />
+		<title></title>
+		<style>
+			.layui-tab {
+				margin: 0px 0;
+				text-align: left !important;
+			}
+
+			.layui-btn-container {
+				position: absolute;
+			}
+
+			.layui-tab-content {
+				padding: 10px;
+				height: calc(90vh - 10px);
+			}
+
+			.layui-tab-title li {
+				background: #272727;
+				color: white;
+			}
+
+			.layui-tab-title {
+				background: #272727;
+			}
+
+			.layui-tab-title .layui-this {
+				color: #000;
+				background: white;
+			}
+
+			.min-width .layui-form-item .layui-input-inline {
+				width: 100px !important;
+			}
+
+			#just .layui-form-label,#just_  .layui-form-label{
+				min-width: 40px;
+				width: auto;
+				text-align: left;
+				padding: 9px 10px;
+			}
+
+			.layui-btn-container-s {
+				margin: 15px 0 10px 0;
+			}
+
+			#just {
+				margin: 15px 0;
+			}
+
+			.layui-btn-xs {
+				height: 22px !important;
+			}
+
+			.alert-block {
+				height: 35px;
+				line-height: 35px;
+			}
+
+			.alert-block select {
+				width: 168px;
+				height: 28px;
+			}
+
+			.alert-block input {
+				height: 24px;
+			}
+
+			.alert-block label {
+				width: 100px;
+				display: inline-block;
+			}
+
+			#layui-layer7 .layui-layer-content {
+				padding: 20px 55px 20px 0px !important;
+			}
+
+			.toggle,
+			.pane,
+			.bulid,
+			#idTest {
+				display: none;
+			}
+
+			.examine {
+				border: 1px solid #C9C9C9;
+				background-color: #fff;
+				color: #999!important;
+			}
+			.eacharts{width: 420px;height: 240px;    position: absolute;
+				right: 0;
+				top: 15px;}
+
+			.layui-form-checked span{    background-color: #009688;}
+		    /*新加 3月6日加的内容*/
+			.left-list{    display: inline-block;
+				width: 146px;
+				float: left;
+				border: 1px solid #ccc;
+				border-right:none ;
+				height: 89vh;
+				box-sizing: content-box;
+			}
+
+			.left-list ul li{list-style: none;
+				height: 40px;
+				background: #1c1d1d;
+				color: white;
+				line-height: 40px;
+				border-top: 1px solid white;text-align: center;   }
+           .right-row{float: right;
+			   display: inline-block;
+			   width: calc(100% - 150px);
+			   height: 89vh;
+			   border: 1px solid #ccc;
+		   }
+           .two{display: none}
+		</style>
+	</head>
+
+	<body>
+		<!--<div class="layui-form layui-form-pane pane">-->
+		<div class="layui-tab-item layui-show">
+			<div class="left-list">
+							<ul>
+								<li data-id="1">用户管理</li>
+								<li data-id="2">信息管理</li>
+							</ul>
+						</div>
+						<!--第一个-->
+
+						<div class="right-row one">
+						<button class="layui-btn  bulid">添加用户</button>
+						<div class="layui-row toggle">
+							<form class="layui-form" action="" id="just" lay-filter="just-form">
+								<div class="layui-inline">
+									<label class="layui-form-label">权限</label>
+									<div class="layui-input-inline">
+										<select name="just" lay-filter="just">
+											<option value="0">管理员</option>
+											<option value="1">设计师</option>
+											<option value="2">主管</option>
+											<option value="3">用户</option>
+											<option value="4">其他人</option>
+										</select>
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">账号</label>
+									<div class="layui-input-inline">
+										<input type="text" name="username" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-label">密码</label>
+									<div class="layui-input-inline">
+										<input type="text" name="password" autocomplete="off" class="layui-input">
+									</div>
+								</div>
+								<div class="layui-form-item power" style="margin-top: 15px;">
+									<label class="layui-form-label">权限</label>
+									<div class="layui-input-block " style="margin-left: 0px;">
+										<input type="checkbox" name="like" title="保存" checked="">
+										<input type="checkbox" name="like" title="修改" checked="">
+										<input type="checkbox" name="like" title="新增" checked="">
+										<input type="checkbox" name="like" title="删除" checked="">
+										<button type="button" class="layui-btn layui-btn-sm getChecked" lay-demo="getChecked" >保存</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<table class="layui-table" id="idTest" lay-filter="demo">
+						</table>
+
+						<div class="layui-form layui-form-pane pane">
+							<div class="layui-form-item">
+								<div class="layui-inline">
+									<label class="layui-form-label">用户名：</label>
+									<div class="layui-input-inline">
+										<input type="text" name="date" autocomplete="off" value="" class="layui-input account" disabled="disabled">
+									</div>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<div class="layui-inline">
+									<label class="layui-form-label">新密码：</label>
+									<div class="layui-input-inline">
+										<input type="password" name="date" autocomplete="off" class="layui-input password ">
+									</div>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<div class="layui-inline">
+									<button class="layui-btn i layui-btn-primary save">保存</button>
+								</div>
+								<div class="layui-inline">
+									<button class="layui-btn i layui-btn-primary empty">清空</button>
+								</div>
+							</div>
+						</div>
+					   </div>
+
+						<!--第二个-->
+						<div class="right-row two">
+								<form class="layui-form" action="" id="" lay-filter="just_">
+									<div class="layui-form-item">
+										<label class="layui-form-label">发动机型号</label>
+										<div class="layui-input-inline">
+											<input type="text" name="engineType" autocomplete="off" class="layui-input">
+										</div>
+										<label class="layui-form-label">叶片位置</label>
+										<div class="layui-input-inline">
+											<input type="text" name="LeafBladePosition" autocomplete="off" class="layui-input">
+										</div>
+										<label class="layui-form-label">叶片类型</label>
+										<div class="layui-input-inline">
+											<input type="text" name="BladeType" autocomplete="off" class="layui-input">
+										</div>
+										<button type="button" class="layui-btn layui-btn-sm hold"  >保存</button>
+									</div>
+								</form>
+
+							<table class="layui-table" id="tab_del" lay-filter="tab_del">
+							</table>
+
+
+						</div>
+		</div>
+		<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" style="background-color: #FD482C">删除</a>
+		</script>
+		<script type="text/html" id="tab_dels">
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" style="background-color: #FD482C">删除</a>
+			<a class="layui-btn layui-btn-xs" lay-event="edit">取消</a>
+		</script>
+		<!--</div>-->
+	</body>
+	<script src="../static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../static/css/layui-2.5.5/dist/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../static/js/sesson.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+        var pathName = window.document.location.pathname;
+        var index = pathName.lastIndexOf("/");
+        var projectName = pathName.slice(0, index - 5 )
+        var path = "http://" + window.location.host + projectName
+		layui.use(['element', 'form', 'table', 'layer', 'tree', 'util'], function() {
+				var $ = layui.jquery,
+					form = layui.form,
+					tree = layui.tree,
+					util = layui.util,
+					table = layui.table,
+					element = layui.element;
+            $(".bulid").click(function() {
+                $(".toggle").slideToggle("slow");
+            })
+            
+            $(".left-list ul li").each(function(){
+			    $(this).click(function(){
+			        if($(this).attr("data-id")==1){
+			            $(".two").hide()
+	                    $(".one").show()
+					}else{
+	                    $(".one").hide()
+	                    $(".two").show()
+					}
+				})
+			})
+        function tab_del() {
+                    table.render({
+                        elem: '#tab_del',
+                        url: path + 'selectAllDeleteBlade', //后台已经给了  这里要写成活得；
+                        toolbar: '#tab_dels',
+                        title: '用户数据表',
+                        cols: [
+                            [ {
+                                field: 'id',
+                                title: 'ID',
+                                fixed: true,
+                                sort: true,
+								 width:200
+                            }, {
+                                field: 'bladename11',
+                                title: '叶片名称'
+                            }, {
+                                field: 'attribute',
+                                title: '属性',
+                                width:200
+                            }, {
+                                field: 'score',
+                                title: '操作',
+                                fixed: 'right',
+                                toolbar: '#tab_dels'
+                            }]
+                        ],
+                        page: true
+                    });
+                }
+        tab_del()
+		function justlist() {
+			table.render({
+				elem: '#idTest',
+				url: path + 'AdministratorSelectUser?just=0', //后台已经给了  这里要写成活得；
+				toolbar: '#barDemo',
+				title: '用户数据表',
+				cols: [
+					[{
+						type: 'checkbox',
+						fixed: 'left',
+					}, {
+						field: 'username',
+						title: '账号',
+						fixed: true,
+						sort: true
+					}, {
+						field: 'just',
+						title: '权限'
+					}, {
+						field: 'score',
+						title: '操作',
+						fixed: 'right',
+						toolbar: '#barDemo'
+					}]
+				],
+				page: true
+			});
+		}
+
+		//这里是做权限判定的很重要；
+		if(userEntity.just == 0) {
+			$(".bulid,#idTest").show()
+			justlist();
+			tab_del();
+		} else {
+			$(".left-list").hide()
+			$(".one").css({
+                        "float": "none",
+                        "width":"100%",
+                        "border":"none"
+					})
+			$(".pane").show()
+			layui.$('.save').on('click', function() {
+				let name = $(".account").val(),
+					pass = $(".password").val();
+				console.log(name + ':' + pass)
+				if(pass == '') {
+					layer.alert("密码不能为空")
+				}
+				$.get(path + 'updateUserPassword', {
+					username: name,
+					password: pass
+				}, function(res) {
+					switch(res.code) {
+						case 1:
+							layer.alert(res.message)
+							break;
+						case 0:
+							layer.alert(res.message, {
+								icon: 1,
+								closeBtn: 0
+							}, function(index) {
+								location.href = "./login.html"
+								layer.close(index)
+							});
+							break;
+						default:
+							break;
+					}
+				})
+			})
+			layui.$('.empty').on('click', function() {
+				$(".password").val('');
+			})
+		}
+		form.on('select(just)', function(data) {
+                	let html='<input type="checkbox" name="like" title="保存" checked=""><input type="checkbox" name="like" title="修改" checked=""><input type="checkbox" name="like" title="新增" checked=""><input type="checkbox" name="like" title="删除" checked="">'
+					switch (data.value){
+						case 0:
+						$(".power").html(html)
+							break;
+						case 1:
+						$(".power").html(html)
+							break;
+						case 2:
+						$(".power").html(html)
+							break;
+						case 3:
+						$(".power").html('')
+							break;
+						case 4:
+						$(".power").html('')
+							break;
+						default:
+							break;
+					}
+				})
+		//按钮事件
+                    $(".getChecked").click(function(){
+						var data = form.val("just-form")
+						console.log(data) //form的值
+						$.get(path + 'AdministratorAddUser', {
+							just: data.just,
+							username: data.username,
+							password: data.password
+						}, function(res) {
+							console.log(res)
+							switch(res.code) {
+								case 0:
+									justlist();
+									layer.msg(res.message)
+									break;
+								case 1:
+									layer.msg(res.message)
+									break;
+								case 2:
+									layer.msg(res.message)
+									break;
+								case 3:
+									layer.msg(res.message)
+									break;
+								default:
+									break;
+							}
+						})
+                })
+                $(".hold").click(function(){
+                    var data = form.val("just_")
+                    console.log(data) //form的值
+                    $.get(path + 'BladeAttributeInsertParameters', {
+                        enginetype: data.engineType,
+                        location: data.LeafBladePosition,
+                        blade: data.BladeType
+                    }, function(res) {
+                        console.log(res)
+						if(res.code==0){
+                           layer.msg(res.data)
+                            layui.form.render();
+						}else{
+                            layer.msg(res.data)
+						}
+                    })
+                })
+                //监听工具条
+				function html(name) {
+					var html = '<form  id="root" lay-filter="root">' +
+						'<div class="alert-block"><label for="">权限</label>' +
+						'<select name="just">' +
+						'<option value="0">管理员</option>' +
+						'<option value="1">设计师</option>' +
+						'<option value="2">主管</option>' +
+						'<option value="3">用户</option>' +
+						'<option value="4">其他人</option>' +
+						'</select></div>' +
+						'<div class="alert-block"><label for="">账号</label><input type="text" name="username" readonly id="" value="' + name + '" /></div>' +
+						'<div class="alert-block"><label for="">密码</label><input type="text" name="password" id="" value="" /></div>' +
+						'</form>'
+					return html
+				}
+				table.on('tool(demo)', function(obj) {
+					var data = obj.data;
+					if(obj.event === 'detail') {
+						layer.msg('ID：' + data.id + ' 的查看操作');
+					} else if(obj.event === 'del') {
+						layer.confirm('真的删除行么', function(index) {
+							console.log(data.length)
+							// obj.del();
+
+							$.get(path + 'AdministratorDeleteUser', {
+								id: data.id,
+								just: userEntity.just
+							}, function(res) {
+								switch(res.code) {
+									case 0:
+										justlist();
+										layer.msg(res.data)
+										break;
+									case 1:
+										layer.msg(res.data)
+										break;
+									case 2:
+										layer.msg(res.data)
+										break;
+									case 3:
+										layer.msg(res.data)
+										break;
+									default:
+										break;
+								}
+							})
+							layer.close(index);
+						});
+					} else if(obj.event === 'edit') {
+						console.log(JSON.stringify(data))
+						layer.confirm(html(data.username), {
+							title: '测试',
+							area: ['382px', '240px'],
+							btn: ['确定', '取消'] //按钮
+						}, function(index) {
+							var forms = formToJson($("#root"))
+							forms = $.trim(forms)
+							var formt = JSON.parse(forms)
+							console.log(formt)
+							$.get(path + 'AdministratorUpdateUser', {
+								username: formt.username,
+								password: formt.password,
+								just: formt.just
+							}, function(res) {
+								switch(res.code) {
+									case 0:
+										layer.close(index);
+										layer.msg(res.message)
+										break;
+									case 1:
+										layer.msg(res.message)
+										break;
+									default:
+										break;
+								}
+							})
+						}, function() {
+							layer.msg('关闭窗口');
+						});
+					}
+				});
+
+            table.on('tool(tab_del)', function(obj) {
+                var data = obj.data;
+                if(obj.event === 'del') {
+                    layer.confirm('真的删除行么', function(index) {
+                        console.log(data.length)
+                        layer.close(index);
+                        $.get(path + 'DeleteConfirmSettingByStatus',{
+                            id:data.id,
+                            condition:1,
+                            attribute:data.attribute
+                        }, function(res) {
+                            console.log(res)
+                            tab_del()
+                        })
+                    });
+                } else if(obj.event === 'edit') {
+                    console.log(JSON.stringify(data))
+                    $.get(path + 'DeleteConfirmSettingByStatus',{
+                        id:data.id,
+                        condition:2,
+                        attribute:data.attribute
+                    }, function(res) {
+                        console.log(res)
+                        tab_del()
+                    })
+                }
+            });
+				})
+	</script>
+
+</html>

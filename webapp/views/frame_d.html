@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../static/css/layui-2.5.5/dist/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../static/css/index.css" />
+		<style type="text/css">
+			.layui-btn-container {
+				text-align: center;
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+				background: white;
+				padding: 13px 0 5px 0;
+				border-top: 1px solid #e6e6e6;
+				z-index: 1000;
+				left: 0;
+			}
+			
+			body {
+				padding: 5px;
+			}
+			
+			.layui-table-tool {
+				display: none;
+			}
+			
+			.layui-table-view {
+				margin-bottom: 70px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<form class="layui-form layui-form-pane" lay-filter="formJson">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">选择叶片名称</label>
+					<div class="layui-input-inline">
+						<select name="BladeNamegeom" id="BladeNamegeom" lay-filter="BladeNamegeom">
+						</select>
+					</div>
+					<!--<div class="layui-form-mid layui-word-aux layui-btn layui-btn-primary" data-id="1">-->
+						<!--<span>单条查询</span></div>-->
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">截面位置</label>
+					<div class="layui-input-inline">
+						<select name="geom_position" id="geom_position" lay-filter="geom_position">
+						</select>
+					</div>
+					<!--<div class="layui-word-aux layui-btn layui-btn-primary more">-->
+						<!--<span>多条查询</span></div>-->
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">选择测量编号</label>
+					<div class="layui-input-inline">
+						<select name="Measure_Sn" lay-filter="Measure_Sn" id="Measure_Sn">
+							<option value="0">请选择</option>
+						</select>
+					</div>
+					<div class="layui-form-mid layui-word-aux layui-btn layui-btn-primary" data-id="2">
+						<span>查询</span>
+					</div>
+				</div>
+			</div>
+			<div class="scroll">
+				<table class="layui-table" id="table4" lay-filter="table4"></table>
+			</div>
+		</form>
+		<div class="layui-btn-container block">
+			<button type="button" class="layui-btn amends">修改</button>
+		</div>
+		<script type="text/html" id="toolbarDemd">
+			<button type="button" class="layui-btn getCheckDatd" lay-event="getCheckDatd">修改</button>
+		</script>
+	</body>
+	<script src="../static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../static/js/xlsx.core.min.js"></script>
+	<script src="../static/css/layui-2.5.5/dist/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		//获取项目名称
+		var pathName = window.document.location.pathname;
+		var index = pathName.lastIndexOf("/");
+		var projectName = pathName.slice(0, index - 5)
+		var path = "http://" + window.location.host + projectName
+		layui.use(['element', 'form', 'table', 'layer'], function() {
+			var $ = layui.jquery,
+				form = layui.form,
+				table = layui.table,
+				element = layui.element;
+			$(".scroll").width($("body").width() - 5)
+			//第一步 渲染
+			$.get(path + 'findMeasureName', function(res) {
+				console.log(res)
+				var html
+				for(var name in res.data) {
+					html += '<option   value=' + res.data[name].bladeattribute_id + '>' + res.data[name].bladename11 + '</option>'
+				}
+				$('#BladeNamegeom').html(html)
+				layui.form.render("select");
+				$('select[name="BladeNamegeom"]').next().find('.layui-select-title input').click();
+				$('select[name="BladeNamegeom"]').next().find('.layui-anim').children('dd').eq(0).click();
+			})
+			//第二步 调用
+			form.on('select(BladeNamegeom)', function(data) {
+
+                var date = form.val("formJson")
+			    $.get(path + 'findMeasureSectionByBid', {
+                    bladeattribute_id: data.value
+                }, function(res) {
+                    console.log(res)
+                    var text="<option value='0'>请选择</option>"
+                    let html = '',htmls = ''
+                    for(var i = 0; i < res.data.length; i++) {
+                        htmls += '<option value=' + res.data[i] + '>' + res.data[i] + '</option>'
+                    }
+                    $('#geom_position').html(text+htmls)
+                    layui.form.render("select");
+                })
+			})
+            form.on('select(geom_position)', function(data) {
+
+                var date = form.val("formJson")
+
+                $.get(path + 'findMeasureMeasureByBidAndSect', {
+                    bladeattribute_id: date.BladeNamegeom,
+                    section: data.value
+                }, function (res) {
+                    console.log(res)
+                    var text = "<option value='0'>请选择</option>"
+                    let html = '', htmls = ''
+                    for (var i = 0; i < res.data.length; i++) {
+                        html += '<option value=' + res.data[i] + '>' + res.data[i] + '</option>'
+                    }
+                    $('#Measure_Sn').html(text + html)
+                    layui.form.render("select");
+                })
+            })
+
+
+			var arr = [
+				[{
+					type: 'checkbox',
+					fixed: 'left'
+				}, {
+					field: 'bladename11',
+					title: '叶片名称',
+					width: 100
+				}, {
+					field: 'section',
+					title: '截面位置',
+					width: 100
+				}, {
+					field: 'measure_sn',
+					title: '测量编号',
+					width: 100
+				}, {
+					field: 'clerror',
+					title: '弦长误差',
+					width: 100
+				}, {
+					field: 'faerror',
+					title: '前缘角误差',
+					width: 100
+				}, {
+					field: 'raerror',
+					title: '后缘角误差',
+					width: 100
+				}, {
+					field: 'derror',
+					title: '最大挠度误差',
+					width: 100
+				}, {
+					field: 'dperror',
+					title: '最大挠度位置误差',
+					width: 100
+				}, {
+					field: 'tkerror',
+					title: '最大厚度误差',
+					width: 100
+				}, {
+					field: 'tkperror',
+					title: '最大厚度位置误差',
+					width: 100
+				}, {
+					field: 'bwerror',
+					title: '叶型弯角误差',
+					width: 100
+				}, {
+					field: 'angleerror',
+					title: '叶型扭转角度误差',
+					width: 100
+				}, {
+					field: 'translationerror',
+					title: '叶型平移误差',
+					width: 100
+				}, {
+					field: 'outlineerror',
+					title: '叶型线轮廓度误差',
+					width: 100
+				}]
+
+			]
+
+			function option4() {
+				table.render({
+					elem: '#table4',
+					url: path + 'findAllgemoetricalError',
+					toolbar: '#toolbarDemd',
+					title: '用户数据表',
+					cols: arr,
+					page: true
+				});
+			}
+
+			option4();
+
+            function option4_1(id,mark, place) {
+                table.render({
+                    elem: '#table4',
+                    url: path + 'findGemoErrorByNameAndSectionOrMeasure?bladeattribute_id=' + id + "&measure_sn=" + mark + "&section=" + place,
+                    toolbar: '#toolbarDemd',
+                    title: '用户数据表',
+                    cols: arr,
+                    page: true
+                });
+            }
+            //多条查询
+            $(".layui-form-mid").click(function() {
+                var data = form.val("formJson")
+                option4_1(data.BladeNamegeom, data.Measure_Sn, data.geom_position)
+            })
+
+			// 读取本地excel文件
+			function readWorkbookFromLocalFile(file, callback) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					var data = e.target.result;
+					var workbook = XLSX.read(data, {
+						type: 'binary'
+					});
+					if(callback) callback(workbook);
+				};
+				reader.readAsBinaryString(file);
+			}
+
+			// 读取 excel文件
+			function outputWorkbook(workbook) {
+				var sheetNames = workbook.SheetNames; // 工作表名称集合
+				sheetNames.forEach(name => {
+					var worksheet = workbook.Sheets[name]; // 只能通过工作表名称来获取指定工作表
+					for(var key in worksheet) {
+						// v是读取单元格的原始值
+						console.log(key, key[0] === '!' ? worksheet[key] : worksheet[key].v);
+					}
+				});
+			}
+
+			function readWorkbook(workbook) {
+				var sheetNames = workbook.SheetNames; // 工作表名称集合
+				var worksheet = workbook.Sheets[sheetNames[0]]; // 这里我们只读取第一张sheet
+				var csv = XLSX.utils.sheet_to_csv(worksheet);
+				csv2table(csv);
+			}
+
+			// 将csv转换成表格
+			function csv2table(csv) {
+				var html = '<table>';
+				var rows = csv.split('\n');
+				rows.pop(); // 最后一行没用的
+				console.log(rows)
+				/**
+				 * 这里批量导入成功后    重新调取一次渲染列表
+				 */
+			}
+
+			table.on('toolbar(table4)', function(obj) {
+				var checkStatus = table.checkStatus(obj.config.id);
+				switch(obj.event) {
+					case 'getCheckDatd':
+						var data = checkStatus.data;
+						if(JSON.stringify(data) == '[]') {
+							layer.alert("请选择修改项");
+						} else {
+							if(data.length > 1) {
+								layer.alert("修改只能单选进行")
+							} else {
+								var html = '<ui class="lauyui-ul">' +
+									'<div class="uploader black"><input type="text" class="filename" readonly /><input type="button" name="file" class="button" value="Browse..." /><input type="file" size="30" /></div>' +
+									'<div class="uploader black"><input type="text" class="filename" readonly /><input type="button" name="file" class="button" value="Browse..." /><input type="file" size="30" /></div>' +
+									'<div class="uploader black"><input type="text" class="filename" readonly /><input type="button" name="file" class="button" value="Browse..." /><input type="file" size="30" /></div>' +
+									'</ui>'
+								// 弹窗开始操作
+								layer.open({
+									type: 1,
+									title: "误差操作",
+									skin: 'layui-layer-rim', //加上边框
+									area: ['420px', '240px'], //宽高
+									content: html
+								});
+							}
+						}
+						break;
+					default:
+						break;
+				};
+				$("input[type=file]").change(function(e) {
+					var files = e.target.files;
+					if(files.length == 0) return;
+					var f = files[0];
+					if(!/\.xlsx$/g.test(f.name)) {
+						layer.alert('仅支持读取xlsx格式！');
+						return;
+					}
+					readWorkbookFromLocalFile(f, function(workbook) {
+						readWorkbook(workbook);
+					});
+					$(this).parents(".uploader").find(".filename").val($(this).val());
+				});
+				$("input[type=file]").each(function() {
+					if($(this).val() == "") {
+						$(this).parents(".uploader").find(".filename").val("No file selected...");
+					}
+				});
+			});
+			$(".amends").click(function() {
+				$(".getCheckDatd").trigger("click");
+			})
+		})
+	</script>
+
+</html>

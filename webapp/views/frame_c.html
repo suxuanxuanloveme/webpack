@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../static/css/layui-2.5.5/dist/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="../static/css/index.css" />
+		<style type="text/css">
+			.layui-btn-container {
+				text-align: center;
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+				background: white;
+				padding: 13px 0 5px 0;
+				border-top: 1px solid #e6e6e6;
+				z-index: 1000;
+				left: 0;
+			}
+			
+			body {
+				padding: 5px;
+			}
+			
+			.layui-table-tool {
+				display: none;
+			}
+			
+			.layui-table-view {
+				margin-bottom: 70px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<input type="hidden" name="" class="val" value="1" />
+		<input type="hidden" name="" class="value" value="" />
+		<form class="layui-form layui-form-pane min-width" id="formTexted" lay-filter="formTexted">
+			<input type="hidden" name="record_id" lay-filter="record_id">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">测试编号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="serialNumber" id="serialNumber" autocomplete="off" class="layui-input serialNumber" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">选择叶片名称</label>
+					<div class="layui-input-inline">
+						<select name="name" id="name" lay-filter="name">
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">截面位置</label>
+					<div class="layui-input-inline">
+						<select name="CrossSectionPosition" id="CrossSectionPosition" lay-filter="CrossSectionPosition">
+
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">前缘角：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="FrontRoundCut" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">后缘角：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="AfterRoundCorner" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+
+				<div class="layui-inline">
+					<label class="layui-form-label">后缘圆心&nbsp;OX</label>
+					<div class="layui-input-inline">
+						<input type="text" name="lastCenterX" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">OY</label>
+					<div class="layui-input-inline">
+						<input type="text" name="lastCenterY" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">前缘圆心&nbsp;OX</label>
+					<div class="layui-input-inline">
+						<input type="text" name="frontCenterX" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">OY</label>
+					<div class="layui-input-inline">
+						<input type="text" name="frontCenterY" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+
+				<div class="layui-inline">
+					<label class="layui-form-label">短轴半径</label>
+					<div class="layui-input-inline">
+						<input type="text" name="MinorAxisRadius" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+
+			</div>
+
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">叶型弯角</label>
+					<div class="layui-input-inline">
+						<input type="text" name="BladeAngle" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">最大挠度</label>
+					<div class="layui-input-inline">
+						<input type="text" name="maximumDeflection" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">最大挠度位置</label>
+					<div class="layui-input-inline">
+						<input type="text" name="maximumDeflectionPosition" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">后缘半径R</label>
+					<div class="layui-input-inline">
+						<input type="text" name="lastCenterB" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">弦长</label>
+					<div class="layui-input-inline">
+						<input type="text" name="chordLength" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">最大厚度</label>
+					<div class="layui-input-inline">
+						<input type="text" name="maximumGauge" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">最大厚度位置</label>
+					<div class="layui-input-inline">
+						<input type="text" name="maximumGaugePosition" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">长轴半径</label>
+					<div class="layui-input-inline">
+						<input type="text" name="LongShaftRadius" autocomplete="off" class="layui-input" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
+					</div>
+				</div>
+			</div>
+
+			<div class="scroll">
+				<table class="layui-table" id="table3" lay-filter="table3">
+				</table>
+			</div>
+		</form>
+		<div class="layui-btn-container block">
+			<button type="button" class="layui-btn getCheckLength">保存</button>
+			<button type="button" class="layui-btn amend2">修改</button>
+			<button type="button" class="layui-btn new">新增</button>
+			<button type="button" class="layui-btn delete2" style="background-color: #FD482C">删除选中行</button>
+			<button class=" layui-btn tolead">批量导入</button>
+			<button class=" layui-btn download">下载录入模板</button>
+		</div>
+		<script type="text/html" id="toolbarDemc">
+            <button type="button" class="layui-btn getCheckDatc" lay-event="getCheckDatc">修改</button>
+        </script>
+	</body>
+	<script src="../static/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../static/js/xlsx.core.min.js"></script>
+	<script src="../static/css/layui-2.5.5/dist/layui.all.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//获取项目名称
+        var pathName = window.document.location.pathname;
+        var index = pathName.lastIndexOf("/");
+        var projectName = pathName.slice(0, index - 5)
+        var path = "http://" + window.location.host + projectName
+		$(".scroll").width($("body").width() - 5)
+		layui.use(['element', 'form', 'table', 'layer'], function() {
+			var $ = layui.jquery,
+				form = layui.form,
+				table = layui.table,
+				element = layui.element;
+			$.get(path + 'findDesignNameOrId', {
+                status: 2
+           }, function (res) {
+                var html
+                for (var name in res.data) {
+                    html += '<option data-id=' +  res.data[name].id + ' value=' + res.data[name].bladeattribute_id + '>' + res.data[name].bladename11 + '</option>'
+                }
+                $('#name').html(html)
+                layui.form.render("select");
+                $('select[name="name"]').next().find('.layui-select-title input').click();
+                $('select[name="name"]').next().find('.layui-anim').children('dd').eq(0).click();
+            })
+			form.on('select(name)', function(data) {
+				$.get(path + 'findMeasureSectionByName', {
+					bladeattribute_id: $("#name").find("option:selected").attr("data-id")
+				}, function(res) {
+					console.log(res)
+					let html = ''
+					for(var i = 0; i < res.data.length; i++) {
+						console.log(res.data[i])
+						html += '<option value=' + res.data[i] + '>' + res.data[i] + '</option>'
+					}
+					$('#CrossSectionPosition').html(html)
+					layui.form.render("select");
+				})
+			})
+            //新增表单
+            layui.$('.new').on('click', function () {
+                var str = $(this).parent().prev().attr("lay-filter")
+                var data = form.val(str);
+                switch (str) {
+                    case "formTest":
+                        $("#formTest")[0].reset();
+                        layui.form.render();
+                        break;
+                    case "formText":
+                        $("#formText")[0].reset();
+                        layui.form.render();
+                        break;
+                    case "formTexted":
+                        $("#serialNumber").removeAttr("readonly");
+                        $("#name").removeAttr("disabled");
+                        $("#CrossSectionPosition").removeAttr("disabled");
+                        $("#formTexted")[0].reset();
+                        layui.form.render();
+                         $(".val").val(1);
+                        break;
+                    default:
+                        break;
+                }
+            })
+			function option3() {
+				table.render({
+					elem: '#table3',
+					url: path + 'findAllMeasureParameter',
+					toolbar: '#toolbarDemc',
+					title: '用户数据表',
+					cols: [
+						[{
+							type: 'checkbox',
+							fixed: 'left'
+						}, {
+							field: 'measurename',
+							title: '叶片名称',
+							width: 100
+						}, {
+							field: 'measure_sn',
+							title: '测量编号',
+							width: 100
+						}, {
+							field: 'section',
+							title: '截面位置',
+							width: 100
+						}, {
+							field: 'chordlength',
+							title: '弦长',
+							width: 100
+						}, {
+							field: 'frontcenterx',
+							title: '前缘圆心OX',
+							width: 100
+						}, {
+							field: 'frontcentery',
+							title: '前缘圆心OY',
+							width: 100
+						}, {
+							field: 'rearcenterx',
+							title: '后缘圆心OX',
+							width: 100
+						}, {
+							field: 'rearcentery',
+							title: '后缘圆心OY',
+							width: 100
+						}, {
+							field: 'frontangle',
+							title: '前缘角',
+							width: 100
+						}, {
+							field: 'rearangle',
+							title: '后缘角',
+							width: 100
+						}, {
+							field: 'deflection',
+							title: '最大挠度',
+							width: 100
+						}, {
+							field: 'deflectionposition',
+							title: '最大挠度位置',
+							width: 100
+						}, {
+							field: 'thickness',
+							title: '最大厚度',
+							width: 100
+						}, {
+							field: 'thicknessposition',
+							title: '最大厚度位置',
+							width: 100
+						}, {
+							field: 'biegewinkel',
+							title: '叶型弯角',
+							width: 100
+						}, {
+							field: 'majorradius',
+							title: '长轴半径',
+							width: 100
+						}, {
+							field: 'shortradius',
+							title: '短轴半径',
+							width: 100
+						}]
+
+					],
+					page: true
+				});
+			}
+			option3();
+
+			//表单取值   保存的数据
+			layui.$('.getCheckLength').on('click', function() {
+				var str = $(this).parent().prev().attr("lay-filter")
+				var data = form.val(str);
+				var val = $(".val").val();
+				if(val == 1) {
+					console.log(data)
+					$.get(path + 'insertMeasureParameter', {
+						bladeattribute_id:data.name,
+						designparameter_id:$("#name").find("option:selected").attr("data-id"), //叶片名称
+						measure_sn: data.serialNumber,
+						section: data.CrossSectionPosition, //截面位置
+						rearcenterx: data.lastCenterX, //后缘圆心 OX
+						rearcentery: data.lastCenterY, //后缘圆心 OY
+						frontangle: data.FrontRoundCut, //前缘角：
+						rearangle: data.AfterRoundCorner, //后缘角：
+						frontcenterx: data.frontCenterX, //前缘圆心 OX
+						frontcentery: data.frontCenterY, //OY
+						majorradius: data.LongShaftRadius, //长轴半径
+						shortradius: data.MinorAxisRadius, //短轴半径
+						biegewinkel: data.BladeAngle, // 叶型弯角
+						deflection: data.maximumDeflection, //最大挠度
+						deflectionposition: data.maximumDeflectionPosition, //最大挠度位置
+						chordlength: data.chordLength, //弦长
+						thickness: data.maximumGauge, //最大厚度
+						thicknessposition: data.maximumGaugePosition, //最大厚度位置
+						addtime: new Date()
+					}, function(res) {
+						switch(res.code) {
+							case 0:
+                                layer.msg(res.data)
+								option3();
+								break;
+							case 10002:
+								layer.msg(res.data)
+								break;
+							case 10000:
+								layer.msg(res.data)
+								break;
+							case 10001:
+								layer.msg(res.data)
+								break;
+							default:
+								break;
+						}
+						console.log(res)
+					})
+				}
+				if(val == 2) {
+					console.log(data.record_id)
+					$.get(path + 'updateMeasureParameter', {
+						id: data.record_id,
+						bladeattribute_id: data.name,
+						designparameter_id:$("#name").find("option:selected").attr("data-id"), //叶片名称
+						measure_sn: data.serialNumber,
+						section: data.CrossSectionPosition, //截面位置
+						rearcenterx: data.lastCenterX, //后缘圆心 OX
+						rearcentery: data.lastCenterY, //后缘圆心 OY
+						frontangle: data.FrontRoundCut, //前缘角：
+						rearangle: data.AfterRoundCorner, //后缘角：
+						frontcenterx: data.frontCenterX, //前缘圆心 OX
+						frontcentery: data.frontCenterY, //OY
+						majorradius: data.LongShaftRadius, //长轴半径
+						shortradius: data.MinorAxisRadius, //短轴半径
+						biegewinkel: data.BladeAngle, // 叶型弯角
+						deflection: data.maximumDeflection, //最大挠度
+						deflectionposition: data.maximumDeflectionPosition, //最大挠度位置
+						chordlength: data.chordLength, //弦长
+						thickness: data.maximumGauge, //最大厚度
+						thicknessposition: data.maximumGaugePosition, //最大厚度位置
+						addtime: new Date()
+					}, function(res) {
+						switch(res.code) {
+							case 0:
+                                $("#serialNumber").removeAttr("readonly");
+                                $("#name").removeAttr("disabled");
+                                $("#CrossSectionPosition").removeAttr("disabled");
+                                $(".val").val(1);
+                                layui.form.render();
+                                layer.msg(res.data)
+								option3();
+								break;
+							case 10002:
+								layer.msg(res.data)
+								break;
+							case 10000:
+								layer.msg(res.data)
+								break;
+							case 10001:
+								layer.msg(res.data)
+								break;
+							default:
+								break;
+						}
+						console.log(res)
+					})
+				}
+			});
+			table.on('toolbar(table3)', function(obj) {
+				var checkStatus = table.checkStatus(obj.config.id);
+						var data = checkStatus.data;
+						var value = $(".value").val();
+						if(value == 1) {
+							if(JSON.stringify(data) == '[]') {
+								layer.alert("请选择修改项");
+							} else {
+								$(".serialNumber").attr("readonly", "readonly") //这里时把serialNumber  input禁用了
+                                    // $("#name").attr("disabled","disabled")
+                                    // $("#CrossSectionPosition").attr("disabled","disabled")
+								// $.get(path + 'findMeasureSectionByName', {
+								// 	bladeattribute_id: $("#name").find("option:selected").attr("data-id")
+								// }, function(res) {
+								// 	console.log(res)
+								// 	let html = ''
+								// 	for(var i = 0; i < res.data.length; i++) {
+								// 		if(res.data[i] == data[0].section) {
+								// 			html += '<option selected="selected"  value=' + res.data[i] + '>' + res.data[i] + '</option>'
+								// 		} else {
+								// 			html += '<option  value=' + res.data[i] + '>' + res.data[i] + '</option>'
+								// 		}
+								// 	}
+								// 	$('#CrossSectionPosition').html(html)
+								// 	layui.form.render("select");
+								// })
+
+								console.log(JSON.stringify(data))
+								if(data.length > 1) {
+									layer.alert("修改只能单选进行")
+								} else {
+                                    let html
+                                    for(var i = 1; i <= data[0].section; i++) {
+                                        html += '<option value=' + i + '>' + i + '</option>'
+                                    }
+                                    $('#CrossSectionPosition').html(html)
+                                    layui.form.render("select");
+									var obj = {
+										record_id: data[0].id,
+										serialNumber: data[0].measure_sn,
+										name: data[0].bladeattribute_id, //叶片名称
+                                        CrossSectionPosition: data[0].section, //截面位置
+										lastCenterX: data[0].rearcenterx, //后缘圆心 OX
+										lastCenterY: data[0].rearcentery, //后缘圆心 OY
+										FrontRoundCut: data[0].frontangle, //前缘角：
+										AfterRoundCorner: data[0].rearangle, //后缘角：
+										frontCenterX: data[0].frontcenterx, //前缘圆心 OX
+										frontCenterY: data[0].frontcentery, //OY
+										LongShaftRadius: data[0].majorradius, //长轴半径
+										MinorAxisRadius: data[0].shortradius, //短轴半径
+										BladeAngle: data[0].biegewinkel, // 叶型弯角
+										maximumDeflection: data[0].deflection, //最大挠度
+										maximumDeflectionPosition: data[0].deflectionposition, //最大挠度位置
+										chordLength: data[0].chordlength, //弦长
+										maximumGauge: data[0].thickness, //最大厚度
+										maximumGaugePosition: data[0].thicknessposition //最大厚度位置
+									};
+									// 给表单初始赋值，但是无法实现对复选框赋值
+									form.val("formTexted", obj);
+									form.render('select')
+								}
+							}
+							$(".val").val(2)
+						} else {
+							if(JSON.stringify(data) == '[]') {
+								layer.alert("请选择删除项");
+							} else {
+								if(data.length > 1) {
+									console.log(data)
+									var arr = [],arry = []
+
+									for(var i = 0; i < data.length; i++) {
+										arr.push(data[i].id)
+                                        arry.push(data[i].section)
+									}
+									$.get(path + 'deleteMeasureParameterAll', {
+										"id": "" + arr + "",
+										"section": "" + arry + ""
+									}, function(res) {
+										console.log(res)
+										layer.msg("删除多个成功")
+										option3();
+									})
+
+								} else {
+									console.log(data)
+									$.get(path + 'deleteMeasureParameter', {
+										id: data[0].id,
+										section:data[0].section
+									}, function(res) {
+										console.log(res)
+										layer.msg("删除一个成功")
+										option3();
+									})
+								}
+							}
+						}
+
+			});
+			$(".amend2,.delete2").click(function() {
+				if($(this).is(".amend2")) {$(".value").val(1)}
+				if($(this).is(".delete2")){$(".value").val(2)}
+				$(".getCheckDatc").trigger("click");
+			})
+
+
+            // 读取本地excel文件
+            function readWorkbookFromLocalFile(file, callback) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var data = e.target.result;
+                    var workbook = XLSX.read(data, {
+                        type: 'binary'
+                    });
+                    if(callback) callback(workbook);
+                };
+                reader.readAsBinaryString(file);
+            }
+
+            // 读取 excel文件
+            function outputWorkbook(workbook) {
+                var sheetNames = workbook.SheetNames; // 工作表名称集合
+                sheetNames.forEach(name => {
+                    var worksheet = workbook.Sheets[name]; // 只能通过工作表名称来获取指定工作表
+                for(var key in worksheet) {
+                    // v是读取单元格的原始值
+                    console.log(key, key[0] === '!' ? worksheet[key] : worksheet[key].v);
+                }
+            });
+            }
+
+            function readWorkbook(workbook) {
+                var sheetNames = workbook.SheetNames; // 工作表名称集合
+                var worksheet = workbook.Sheets[sheetNames[0]]; // 这里我们只读取第一张sheet
+                var csv = XLSX.utils.sheet_to_csv(worksheet);
+                csv2table(csv);
+            }
+
+            // 将csv转换成表格
+            function csv2table(csv) {
+                var html = '<table>';
+                var rows = csv.split('\n');
+                rows.pop(); // 最后一行没用的
+                console.log(rows)
+                var data={}
+                for(var i=0;i<rows.length;i++){
+                    data['item'+[i]] = rows[i]
+                }
+                /**
+                 * 这里批量导入成功后    重新调取一次渲染列表
+                 */
+                $.get(path + 'bulkImportMeasureData',{list:rows},function(res) {
+                // ,{list:rows}
+                    option3();
+                    console.log(res)
+                })
+            }
+
+            // 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载   注释
+            function sheet2blob(sheet, sheetName) {
+                sheetName = sheetName || 'sheet1';
+                var workbook = {
+                    SheetNames: [sheetName],
+                    Sheets: {}
+                };
+                workbook.Sheets[sheetName] = sheet;
+                // 生成excel的配置项
+                var wopts = {
+                    bookType: 'xlsx', // 要生成的文件类型
+                    bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
+                    type: 'binary'
+                };
+                var wbout = XLSX.write(workbook, wopts);
+                var blob = new Blob([s2ab(wbout)], {type:"application/octet-stream"});
+                // 字符串转ArrayBuffer
+                function s2ab(s) {
+                    var buf = new ArrayBuffer(s.length);
+                    var view = new Uint8Array(buf);
+                    for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+                    return buf;
+                }
+                return blob;
+            }
+            function openDownloadDialog(url, saveName)
+            {
+                if(typeof url == 'object' && url instanceof Blob)
+                {
+                    url = URL.createObjectURL(url); // 创建blob地址
+                }
+                var aLink = document.createElement('a');
+                aLink.href = url;
+                aLink.download = saveName || ''; // HTML5新增的属性，指定保存文件名，可以不要后缀，注意，file:///模式下不会生效
+                var event;
+                if(window.MouseEvent) event = new MouseEvent('click');
+                else
+                {
+                    event = document.createEvent('MouseEvents');
+                    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                }
+                aLink.dispatchEvent(event);
+            }
+
+            $(".download").click(function(){
+                var aoa = [
+//			['主要信息', null, null, '其它信息'], // 特别注意合并的地方后面预留2个null
+                    ['叶片名称', '测量编号', '截面位置', '弦长', '前缘圆心X','前缘圆心Y', '后缘圆心X', '后缘圆心Y', '前缘角', '后缘角', '最大挠度', '最大挠度位置', '最大厚度', '最大厚度位置', '叶型弯角', '长轴半径', '短轴半径'],
+                    ['bladname', '003', 18, 23, 18, 23,18, 23,18, 23,18, 23,18, 23,18, 23,18],
+                    ['bladname', '003', 18, 23, 18, 23,18, 23,18, 23,18, 23,18, 23,18, 23,18]
+                ];
+                var sheet = XLSX.utils.aoa_to_sheet(aoa);
+                sheet['!merges'] = [
+                    // 设置A1-C1的单元格合并
+                    {s: {r: 0, c: 0}, e: {r: 0, c: 0}}
+                ];
+                openDownloadDialog(sheet2blob(sheet), '单元格合并示例.xlsx');
+            })
+
+            $(".tolead").click(function() {
+                var html = '<ui class="lauyui-ul">' +
+                    '<div class="uploader black"><input type="text" class="filename" readonly /><input type="button" name="file" class="button" value="Browse..." /><input type="file" size="30" /></div>' +
+                    '<div class="uploader black"><input type="text" class="filename" readonly /><input type="button" name="file" class="button" value="Browse..." /><input type="file" size="30" /></div>' +
+                    '<div class="uploader black"><input type="text" class="filename" readonly /><input type="button" name="file" class="button" value="Browse..." /><input type="file" size="30" /></div>' +
+                    '</ui>'
+                // 弹窗开始操作
+                layer.open({
+                    type: 1,
+                    title: "误差操作",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['420px', '240px'], //宽高
+                    content: html
+                });
+                $("input[type=file]").change(function(e) {
+                    var files = e.target.files;
+                    if(files.length == 0) return;
+                    var f = files[0];
+                    if(!/\.xlsx$/g.test(f.name)) {
+                        layer.alert('仅支持读取xlsx格式！');
+                        return;
+                    }
+                    readWorkbookFromLocalFile(f, function(workbook) {
+                        readWorkbook(workbook);
+                    });
+                    $(this).parents(".uploader").find(".filename").val($(this).val());
+                });
+                $("input[type=file]").each(function() {
+                    if($(this).val() == "") {
+                        $(this).parents(".uploader").find(".filename").val("No file selected...");
+                    }
+                });
+            });
+		})
+	</script>
+
+</html>
